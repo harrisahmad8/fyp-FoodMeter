@@ -7,8 +7,7 @@ import { setUser } from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signup } from "../api/internal";
-import { Navbara } from "../Components/Navbara";
-import { Footer } from "../Components/Footer";
+
 
 export const  SignUp=()=> {
   const navigate = useNavigate();
@@ -18,10 +17,10 @@ export const  SignUp=()=> {
   const handleSignup = async () => {
     const data = {
       name: values.name,
-      email: values.email,
+      role:values.role,
       password: values.password,
       confirmPassword: values.confirmPassword,
-      number: values.number,
+      email: values.email,
     };
 
     const response = await signup(data);
@@ -31,7 +30,7 @@ export const  SignUp=()=> {
       const user = {
         _id: response.data.user._id,
         email: response.data.user.email,
-        name: response.data.user.name,
+        role: response.data.user.role,
         auth: response.data.auth,
       };
 
@@ -48,18 +47,16 @@ export const  SignUp=()=> {
   const { values, touched, handleBlur, handleChange, errors } = useFormik({
     initialValues: {
       name: "",
+      role: "",
       email: "",
       password: "",
       confirmPassword: "",
-      number: "",
     },
 
     validationSchema: signupSchema,
   });
 
   return (
-    <div>
-    
     <div className={styles.signupWrapper}>
       <div className={styles.signupHeader}>Create an account</div>
       <TextInput
@@ -73,6 +70,16 @@ export const  SignUp=()=> {
         errormessage={errors.name}
       />
 
+      <TextInput
+        type="text"
+        name="role"
+        value={values.role}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="role"
+        error={errors.role && touched.role ? 1 : undefined}
+        errormessage={errors.role}
+      />
 
       <TextInput
         type="text"
@@ -108,27 +115,17 @@ export const  SignUp=()=> {
         }
         errormessage={errors.confirmPassword}
       />
-      <TextInput
-        type="text"
-        name="number"
-        value={values.number}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        placeholder="number"
-        error={errors.number && touched.number ? 1 : undefined}
-        errormessage={errors.number}
-      />
 
       <button
         className={styles.signupButton}
         onClick={handleSignup}
         disabled={
-          !values.number ||
+          !values.role ||
           !values.password ||
           !values.name ||
           !values.confirmPassword ||
           !values.email ||
-          errors.number ||
+          errors.role ||
           errors.password ||
           errors.confirmPassword ||
           errors.name ||
@@ -146,8 +143,6 @@ export const  SignUp=()=> {
       </span>
 
       {error !== "" ? <p className={styles.errorMessage}>{error}</p> : ""}
-    </div>
-
     </div>
   );
 }

@@ -37,4 +37,6 @@ router.get('/booking/:id',auth,bookingController.getByUserId)
 router.post('/comment',auth,commentController.create);
 
 router.get('/comment/:id',auth,commentController.getByRestaurantId)
+
+router.get('/search/:id',auth,)
 module.exports = router;

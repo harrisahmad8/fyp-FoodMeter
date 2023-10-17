@@ -8,6 +8,7 @@ import { setUser } from "../store/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+
 export const Login=()=> {
   const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ export const Login=()=> {
 
   const handleLogin = async () => {
     const data = {
-      email:values.username,
+      username: values.username,
       password: values.password,
     };
 
@@ -51,7 +52,6 @@ export const Login=()=> {
   });
 
   return (
-    <div className="Container">
     <div className={styles.loginWrapper}>
       <div className={styles.loginHeader}>Log in to your account</div>
       <TextInput
@@ -86,7 +86,7 @@ export const Login=()=> {
       >
         Log In
       </button>
-      <span style={{color:"white"}}>
+      <span>
         Don't have an account?{" "}
         <button
           className={styles.createAccount}
@@ -96,7 +96,6 @@ export const Login=()=> {
         </button>
       </span>
       {error !== "" ? <p className={styles.errorMessage}>{error}</p> : ""}
-    </div>
     </div>
   );
 }
