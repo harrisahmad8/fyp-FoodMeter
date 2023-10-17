@@ -6,6 +6,7 @@ import styles from '../CSS/home.module.css';
 import img from '../images/256_subway.jpg';
 import Img from '../images/McDonalds-Logo.png';
 import imag from '../images/hardees4024.jpg';
+
 import { useRef } from 'react';
 
 export const HomePage = () => {
@@ -30,9 +31,12 @@ export const HomePage = () => {
 
 
             <div className={styles.buttons}>
-              <div className={styles.searchbutton}>
-                <h6 className={styles.h6}>Search Restaurant</h6>
-              </div>
+              <Link to="./search">
+                <div className={styles.searchbutton}>
+                  <h6 className={styles.h6}>Search Restaurant</h6>
+                </div>
+              </Link>
+
               <div className={styles.featured} onClick={handleClick}>
                 <h6 className={styles.h7}>Featured Restaurants</h6>
               </div>

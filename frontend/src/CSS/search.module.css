@@ -1,0 +1,52 @@
+/* Default styles for large screens */
+html, body {
+    height: 60%;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+  }
+  
+  /* Container styles for large screens */
+  .container {
+    margin: 20px;
+  }
+  
+  /* Layout styles for large screens */
+  .layout {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Main section styles for large screens */
+  .main {
+    flex: 1;
+    background-size: cover;
+  }
+  
+  /* Header styles for large screens */
+  .header {
+    align-items: center;
+    background-image: url(../images/bgimg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 40px;
+    height: 655px;
+    width: 100%;
+  }
+  
+  /* Add this style for the search button */
+.searchButton {
+    background-color: #5b6b72; /* Change to your preferred button color */
+    color: #fff; /* Text color */
+    padding: 10px 20px; /* Adjust padding for button size */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 300px; /* Adjust the vertical alignment as needed */
+  }
+  
+  .searchButton:hover {
+    background-color: #1f262d; /* Change to a darker color on hover */
+  }
+  
