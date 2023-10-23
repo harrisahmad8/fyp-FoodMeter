@@ -43,10 +43,36 @@ html, body {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 300px; /* Adjust the vertical alignment as needed */
+    margin-top: 40px; /* Adjust the vertical alignment as needed */
   }
   
   .searchButton:hover {
     background-color: #1f262d; /* Change to a darker color on hover */
   }
   
+  /* Add this style for the search input */
+
+
+.h1{
+  padding-top: 160px;
+  color: #ffffff;
+  font-size: 50px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Existing styles... */
+
+/* Add this style for the white card */
+.card {
+  width: 500px;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* You can adjust the shadow as needed */
+  border-radius: 10px; /* Adjust the radius for curved corners */
+  padding: 20px;
+  margin-top: 20px; /* Adjust the spacing between the search bar and the card */
+  margin: 20px auto;
+}
+
+/* Existing styles... */
+

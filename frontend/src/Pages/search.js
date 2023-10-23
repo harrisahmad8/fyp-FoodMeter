@@ -3,20 +3,17 @@ import { Navbar } from '../Components/Navbar';
 import { Footer } from '../Components/Footer';
 import styles from '../CSS/search.module.css';
 import { useRef } from 'react';
-import axios from 'axios'; // Import Axios for making HTTP requests
+import axios from 'axios';
 
 export const Search = () => {
   const ref = useRef(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showCard, setShowCard] = useState(false);
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.post('/search', { searchTerm }); // Send the search term to the /search endpoint
-      console.log(response.data); // Log the response from the Python server
-      // You can update the React component with the search results if needed
-    } catch (error) {
-      console.error('Error searching:', error);
-    }
+  // Function to handle the search button click
+  const handleSearch = () => {
+    // Update the state to show the card
+    setShowCard(true);
   };
 
   return (
@@ -26,7 +23,7 @@ export const Search = () => {
         <Navbar />
         <div className={styles.main}>
           <div className={styles.header}>
-            {/* Your header content */}
+            <h1 className={styles.h1}>Search for a Restaurant</h1>
             <div className={styles.searchBarContainer}>
               <input
                 type="text"
@@ -38,6 +35,12 @@ export const Search = () => {
                 Search
               </button>
             </div>
+            {showCard && (
+              <div className={styles.card}>
+                {/* Content of the white card */}
+                <p>This is the white card that appears after search.</p>
+              </div>
+            )}
           </div>
         </div>
         <Footer />
