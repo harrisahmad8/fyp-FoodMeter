@@ -65,7 +65,7 @@ export const  SignUp=()=> {
         value={values.name}
         onChange={handleChange}
         onBlur={handleBlur}
-        placeholder="name"
+        placeholder="Name"
         error={errors.name && touched.name ? 1 : undefined}
         errormessage={errors.name}
       />
@@ -77,7 +77,7 @@ export const  SignUp=()=> {
         value={values.email}
         onChange={handleChange}
         onBlur={handleBlur}
-        placeholder="email"
+        placeholder="Email"
         error={errors.email && touched.email ? 1 : undefined}
         errormessage={errors.email}
       />
@@ -88,7 +88,7 @@ export const  SignUp=()=> {
         value={values.password}
         onChange={handleChange}
         onBlur={handleBlur}
-        placeholder="password"
+        placeholder="Password"
         error={errors.password && touched.password ? 1 : undefined}
         errormessage={errors.password}
       />
@@ -99,7 +99,7 @@ export const  SignUp=()=> {
         value={values.confirmPassword}
         onChange={handleChange}
         onBlur={handleBlur}
-        placeholder="confirm password"
+        placeholder="Confirm password"
         error={
           errors.confirmPassword && touched.confirmPassword ? 1 : undefined
         }

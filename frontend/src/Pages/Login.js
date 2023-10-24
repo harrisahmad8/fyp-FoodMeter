@@ -53,14 +53,14 @@ export const Login=()=> {
 
   return (
     <div className={styles.loginWrapper}>
-      <div className={styles.loginHeader}>Log in to your account</div>
+      <div className={styles.loginHeader}>Food Meter</div>
       <TextInput
         type="text"
         value={values.username}
         name="username"
         onBlur={handleBlur}
         onChange={handleChange}
-        placeholder="username"
+        placeholder="Username"
         error={errors.username && touched.username ? 1 : undefined}
         errormessage={errors.username}
       />
@@ -70,7 +70,7 @@ export const Login=()=> {
         value={values.password}
         onBlur={handleBlur}
         onChange={handleChange}
-        placeholder="password"
+        placeholder="Password"
         error={errors.password && touched.password ? 1 : undefined}
         errormessage={errors.password}
       />

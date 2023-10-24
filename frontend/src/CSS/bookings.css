@@ -2,10 +2,17 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  color: white;
-  background: linear-gradient(to bottom, #4269E2, #25272B);
+  background-image: url(../images/bgimg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
+}
+
+.body{
+  background-image: url(../images/bgimg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .content {
@@ -14,7 +21,10 @@
 }
 
 .heading {
-  font-size: 40px;
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+  font-style: italic;
   margin-top: 50px;
   margin-bottom: 20px;
 }
