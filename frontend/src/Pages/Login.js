@@ -18,7 +18,7 @@ export const Login=()=> {
 
   const handleLogin = async () => {
     const data = {
-      username: values.username,
+      email: values.email,
       password: values.password,
     };
 
@@ -29,7 +29,7 @@ export const Login=()=> {
       const user = {
         _id: response.data.user._id,
         email: response.data.user.email,
-        username: response.data.user.username,
+        name: response.data.user.name,
         auth: response.data.auth,
       };
 
@@ -44,7 +44,7 @@ export const Login=()=> {
 
   const { values, touched, handleBlur, handleChange, errors } = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
 
@@ -56,13 +56,13 @@ export const Login=()=> {
       <div className={styles.loginHeader}>Log in to your account</div>
       <TextInput
         type="text"
-        value={values.username}
-        name="username"
+        value={values.email}
+        name="email"
         onBlur={handleBlur}
         onChange={handleChange}
-        placeholder="username"
-        error={errors.username && touched.username ? 1 : undefined}
-        errormessage={errors.username}
+        placeholder="email"
+        error={errors.email && touched.email ? 1 : undefined}
+        errormessage={errors.email}
       />
       <TextInput
         type="password"
@@ -78,9 +78,9 @@ export const Login=()=> {
         className={styles.logInButton}
         onClick={handleLogin}
         disabled={
-          !values.username ||
+          !values.email ||
           !values.password ||
-          errors.username ||
+          errors.email ||
           errors.password
         }
       >

@@ -196,10 +196,6 @@ const authController = {
   },
 
   async refresh(req, res, next) {
-    // 1. get refreshToken from cookies
-    // 2. verify refreshToken
-    // 3. generate new tokens
-    // 4. update db, return response
 
     const originalRefreshToken = req.cookies.refreshToken;
 
