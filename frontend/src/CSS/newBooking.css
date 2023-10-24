@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #71b00b, #129a95);
+  
 }
 
 .bookPage{
@@ -20,6 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(to bottom, #71b00b, #129a95);
 }
 
 .booking-form {

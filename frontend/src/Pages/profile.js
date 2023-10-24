@@ -5,7 +5,7 @@ import { Footer } from '../Components/Footer';
 
 export const Profile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name, setName] = useState('Harris ahmed');
+  const [name, setName] = useState('Harris Ahmad');
   const [email, setEmail] = useState('jharis@gmail.com');
   const [phoneNumber, setPhoneNumber] = useState('123-456-7890');
   const [password, setPassword] = useState('********');

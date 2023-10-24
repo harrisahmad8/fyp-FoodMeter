@@ -1,11 +1,10 @@
 .page{
   align-items: center;
+  min-height: 100vh;
   background-image: url(../images/bgimg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  margin-top: 40px;
-  height: 700px;
-  width: 100%;
+  
 }
 
 .user-profile-container {
