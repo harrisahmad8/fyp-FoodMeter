@@ -85,6 +85,7 @@
 .form-row {
   justify-content: space-between;
   margin-bottom: 20px;
+  color: #000;
 }
 
 .input-field {

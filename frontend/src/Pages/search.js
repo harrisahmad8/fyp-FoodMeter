@@ -9,11 +9,23 @@ export const Search = () => {
   const ref = useRef(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showCard, setShowCard] = useState(false);
+  const [responseData, setResponseData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Function to handle the search button click
   const handleSearch = () => {
-    // Update the state to show the card
-    setShowCard(true);
+    // Make a GET request to localhost:8000 with the search term
+    setLoading(true);
+
+    axios.get(`http://localhost:8000/rating/${searchTerm}`)
+      .then(response => {
+        // Update the state to show the card and store the response data
+        setShowCard(true);
+        setResponseData(response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -35,12 +47,18 @@ export const Search = () => {
                 Search
               </button>
             </div>
+            {loading && (
+              <div className={styles.loadingIcon}>
+                {/* Display a loading icon while waiting for data */}
+                Loading...
+                </div>
+                )}
             {showCard && (
-              <div className={styles.card}>
-                {/* Content of the white card */}
-                <p>This is the white card that appears after search.</p>
-              </div>
-            )}
+  <div className={styles.card}>
+    <p>Restaurant: {responseData.keyword}</p>
+    <p>Rating: {responseData.rating.toFixed(1)}</p>
+  </div>
+)}
           </div>
         </div>
         <Footer />

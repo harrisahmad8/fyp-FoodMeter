@@ -32,7 +32,7 @@ def getKeywordCaptions(keyword):
             if keyword in post.caption:
                 caption = post.caption if post.caption else ''
                 captions_string += caption + '\n\n'
-            time.sleep(1)  # Add a 2-second delay between posts
+            time.sleep(3)  # Add a 2-second delay between posts
 
     # Close the Instaloader session (optional)
     loader.context.log("Closed session")

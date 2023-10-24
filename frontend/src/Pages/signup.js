@@ -70,16 +70,6 @@ export const  SignUp=()=> {
         errormessage={errors.name}
       />
 
-      <TextInput
-        type="text"
-        name="role"
-        value={values.role}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        placeholder="role"
-        error={errors.role && touched.role ? 1 : undefined}
-        errormessage={errors.role}
-      />
 
       <TextInput
         type="text"
@@ -115,6 +105,19 @@ export const  SignUp=()=> {
         }
         errormessage={errors.confirmPassword}
       />
+      <select
+  name="role"
+  value={values.role}
+  onChange={handleChange}
+  onBlur={handleBlur}
+  error={errors.role && touched.role ? 1 : undefined}
+>
+  <option value="" label="Select a role" />
+  <option value="admin" label="Admin" />
+  <option value="user" label="User" />
+  <option value="restaurant owner" label="Restaurant Owner" />
+</select>
+{errors.role && touched.role && <div>{errors.role}</div>}
 
       <button
         className={styles.signupButton}
