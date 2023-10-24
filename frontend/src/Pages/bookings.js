@@ -49,7 +49,9 @@ export const Booking = () => {
   const bookingsToRender = bookings.length > 0 ? bookings : dummyBookings;
 
   return (
-    <div className="container" style={{ background: "linear-gradient(to bottom, #4269E2, #25272B)" }}>
+
+    <div className="body">
+    <div className="container">
       <Navbar />
       <div className="content">
         <h2 className="heading">My Bookings</h2>
@@ -79,6 +81,7 @@ export const Booking = () => {
         </div>
       </div>
       <Footer />
+    </div>
     </div>
   );
 };

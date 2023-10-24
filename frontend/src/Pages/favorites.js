@@ -43,13 +43,6 @@ export const Favorites = () => {
     <div className={styles.container}>
       <Navbar />
 
-      <div className={styles.main}>
-        <h10 className={styles.h10}>My Favorites</h10>
-      </div>
-
-
-
-
       <div className={styles.content}>
 
         <div className={styles.favoriteWrapper}>
