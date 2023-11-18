@@ -16,12 +16,10 @@ app.add_middleware(
 )
 
 
-# Download the 'punkt' resource (if not already downloaded)
 nltk.download('punkt')
-# Download the VADER lexicon
+
 nltk.download('vader_lexicon')
 
-# Import other required libraries
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.tokenize import word_tokenize
 from mongotest import getKeywordCaptions
@@ -29,7 +27,6 @@ from mongotest import getKeywordCaptions
 
 sia = SentimentIntensityAnalyzer()
 
-# Add custom words to VADER's lexicon
 custom_lexicon = {
     'admiration': 1.5,
     'affection': 1.5,
@@ -865,7 +862,7 @@ def adjust_for_negation(sentiments, text):
             j = i + 1
             while j < len(words) and words[j] not in [',', '.', '!', '?', ';']:
                 if words[j].lower() in custom_lexicon:
-                    sentiments['compound'] *= -1  # Reverse the sentiment
+                    sentiments['compound'] *= -1  
                     break
                 j += 1
 
@@ -873,11 +870,10 @@ def restaurant_review_rating(review):
     # Analyze the sentiment of the review
     sentiment_scores = sia.polarity_scores(review)
 
-    # Adjust for negation
+   
     adjust_for_negation(sentiment_scores, review)
 
-    # The 'compound' score is a single numerical rating
-    # Scale the 'compound' score to a 1-5 range
+    
     compound_score = sentiment_scores['compound']
     min_score = -1.0
     max_score = 1.0
@@ -888,11 +884,6 @@ def restaurant_review_rating(review):
 
     return final_rating
 
-# Get the restaurant review as input from the user
-#review = getKeywordCaptions("shinwari")
-
-# Get the numerical rating for the review
-#rating = restaurant_review_rating(review)
 
 @app.get("/rating/{keyword}")
 def rating(keyword: str):

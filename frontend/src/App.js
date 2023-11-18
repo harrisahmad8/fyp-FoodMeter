@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route , Redirect} from "react-router-dom";
 import { SignUp } from "./Pages/signup";
 import { Login } from "./Pages/Login";
 import { Favorites } from "./Pages/favorites";
@@ -23,12 +23,13 @@ const isAuth=true;
     <div className="App">
       <Router>
         <Routes>
+        <Route path="/login" exact element={< Login/>} />
           <Route path="/" exact element={<Protected isAuth={isAuth}><HomePage/></Protected>}  />
           <Route path="/search" element={<Protected isAuth={isAuth}><Search/></Protected>} />
 
 
           <Route path="/register" exact element={< SignUp/>}/>
-          <Route path="/login" exact element={< Login/>}/>
+          
 
           <Route path="/profile" exact element={<Protected isAuth={isAuth}><Profile /></Protected>} />
 

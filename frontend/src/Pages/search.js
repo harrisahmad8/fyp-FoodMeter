@@ -56,7 +56,7 @@ export const Search = () => {
             {showCard && (
   <div className={styles.card}>
     <p>Restaurant: {responseData.keyword}</p>
-    <p>Rating: {responseData.rating.toFixed(1)}</p>
+    <p>Rating: {responseData.rating.toFixed(2)}</p>
   </div>
 )}
           </div>

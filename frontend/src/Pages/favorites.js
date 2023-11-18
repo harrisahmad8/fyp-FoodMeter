@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Navbar } from "../Components/Navbar";
 import { Footer } from "../Components/Footer";
 import styles from '../CSS/favorites.module.css'
+import img from '../images/256_subway.jpg'
+import img1 from '../images/McDonalds-Logo.png'
+import img2 from '../images/hardees4024.jpg'
+import img3 from '../images/kfc.png'
 
 const BoxCard = ({ data, onRemoveFavorite }) => {
   const handleRemoveFavorite = () => {
@@ -24,10 +28,10 @@ export const Favorites = () => {
 
   useEffect(() => {
     const dummyFavorites = [
-      { id: 1, name: "Restaurant 1", image: "image1.jpg" },
-      { id: 2, name: "Restaurant 2", image: "image2.jpg" },
-      { id: 3, name: "Restaurant 3", image: "image3.jpg" },
-      { id: 4, name: "Restaurant 4", image: "image4.jpg" },
+      { id: 1, name: "KFC", image: img3 },
+      { id: 2, name: "Mcdonald's", image: img1 },
+      { id: 3, name: "Subway", image: img },
+      { id: 4, name: "Hardees", image: img2 },
     ];
 
     setFavorites(dummyFavorites);

@@ -21,6 +21,7 @@ export const  SignUp=()=> {
       password: values.password,
       confirmPassword: values.confirmPassword,
       email: values.email,
+      number: values.number,
     };
 
     const response = await signup(data);
@@ -51,6 +52,7 @@ export const  SignUp=()=> {
       email: "",
       password: "",
       confirmPassword: "",
+      number:"",
     },
 
     validationSchema: signupSchema,
@@ -105,6 +107,18 @@ export const  SignUp=()=> {
         }
         errormessage={errors.confirmPassword}
       />
+      <TextInput
+        type="text"
+        name="number"
+        value={values.number}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="Number"
+        error={
+          errors.number && touched.number ? 1 : undefined
+        }
+        errormessage={errors.number}
+      />
       <select
   name="role"
   value={values.role}
@@ -128,6 +142,8 @@ export const  SignUp=()=> {
           !values.name ||
           !values.confirmPassword ||
           !values.email ||
+          !values.number||
+          errors.number||
           errors.role ||
           errors.password ||
           errors.confirmPassword ||

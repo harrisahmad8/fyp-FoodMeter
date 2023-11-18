@@ -9,8 +9,7 @@ const bookingController = {
     const userBookingSchema = Joi.object({
       name: Joi.string().min(3).max(30).required(),
       email: Joi.string().email().required(),
-      restaurant: Joi.string().regex(mongodbIdPattern).required(),
-      user: Joi.string().regex(mongodbIdPattern).required(),
+      restaurant: Joi.string().required(),
       number: Joi.string()
         .length(11)
         .pattern(/^[0-9]+$/)
@@ -34,7 +33,6 @@ const bookingController = {
         guest,
         date,
         time,
-        user,
         restaurant,
       });
 

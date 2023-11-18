@@ -1,6 +1,5 @@
 class BookingDTO{
     constructor(booking){
-        this.restaurantLogo=booking.restaurant.logoPath;
         this.restaurant=booking.restaurant.name;
         this.name=booking.name;
         this.date=booking.date;

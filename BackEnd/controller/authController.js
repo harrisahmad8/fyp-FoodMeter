@@ -12,6 +12,7 @@ const authController = {
     console.log(req.body.name)
     console.log(req.body.password)
     console.log(req.body.number)
+    console.log(req.body.role)
     const userRegistrationSchema = Joi.object({
       name: Joi.string().min(3).max(30).required(),
       email: Joi.string().email().required(),

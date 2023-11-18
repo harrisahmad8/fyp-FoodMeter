@@ -53,7 +53,7 @@ export const Login=()=> {
 
   return (
     <div className={styles.loginWrapper}>
-      <div className={styles.loginHeader}>Log in to your account</div>
+      <div className={styles.loginHeader}>Food Meter</div>
       <TextInput
         type="text"
         value={values.email}

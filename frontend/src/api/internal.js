@@ -8,11 +8,12 @@ const api = axios.create({
   },
 });
 
+const baseURL='http://localhost:5000'
 export const login = async (data) => {
   let response;
 
   try {
-    response = await api.post("/login", data);
+    response = await api.post(`${baseURL}/login`, data);
   } catch (error) {
     return error;
   }
@@ -24,7 +25,7 @@ export const signup = async (data) => {
   let response;
 
   try {
-    response = await api.post("/register", data);
+    response = await api.post(`${baseURL}/register`, data);
   } catch (error) {
     return error;
   }

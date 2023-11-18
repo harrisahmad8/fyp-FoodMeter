@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const restaurant = require("./restaurant");
-const user=require('./user')
+const user=require('./user');
+const { string } = require("joi");
 const { Schema } = mongoose;
 const bookingSchema = new Schema(
   {
     name: { type: String, required: true },
-    restaurant: { type: mongoose.SchemaTypes.ObjectId, ref: "Restaurant" },
-    user: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+    restaurant: { type:String, required:true },
     email:{type:String,required:true},
     date:{type:String,required:true},
     time:{type:String,required:true},
