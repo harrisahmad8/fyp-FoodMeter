@@ -37,12 +37,14 @@ export const Search = () => {
           <div className={styles.header}>
             <h1 className={styles.h1}>Search for a Restaurant</h1>
             <div className={styles.searchBarContainer}>
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+              <div className={styles.inputContainer}>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
               <button className={styles.searchButton} onClick={handleSearch}>
                 Search
               </button>
@@ -51,14 +53,14 @@ export const Search = () => {
               <div className={styles.loadingIcon}>
                 {/* Display a loading icon while waiting for data */}
                 Loading...
-                </div>
-                )}
+              </div>
+            )}
             {showCard && (
-  <div className={styles.card}>
-    <p>Restaurant: {responseData.keyword}</p>
-    <p>Rating: {responseData.rating.toFixed(2)}</p>
-  </div>
-)}
+              <div className={styles.card}>
+                <p>Restaurant: {responseData.keyword}</p>
+                <p>Rating: {responseData.rating.toFixed(2)}</p>
+              </div>
+            )}
           </div>
         </div>
         <Footer />
