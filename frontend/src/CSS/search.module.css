@@ -1,78 +1,97 @@
-/* Default styles for large screens */
-html, body {
-    height: 60%;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-  }
-  
-  /* Container styles for large screens */
-  .container {
-    margin: 20px;
-  }
-  
-  /* Layout styles for large screens */
-  .layout {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Main section styles for large screens */
-  .main {
-    flex: 1;
-    background-size: cover;
-  }
-  
-  /* Header styles for large screens */
-  .header {
-    align-items: center;
-    background-image: url(../images/bgimg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin-top: 40px;
-    height: 655px;
-    width: 100%;
-  }
-  
-  /* Add this style for the search button */
-.searchButton {
-    background-color: #5b6b72; /* Change to your preferred button color */
-    color: #fff; /* Text color */
-    padding: 10px 20px; /* Adjust padding for button size */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 40px; /* Adjust the vertical alignment as needed */
-  }
-  
-  .searchButton:hover {
-    background-color: #1f262d; /* Change to a darker color on hover */
-  }
-  
-  /* Add this style for the search input */
+/* Your existing styles... */
 
+/* Container styles for large screens */
+.container {
+  margin: 20px;
+}
 
-.h1{
-  padding-top: 160px;
-  color: #ffffff;
+/* Layout styles for large screens */
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main section styles for large screens */
+.main {
+  flex: 1;
+  background-size: cover;
+}
+
+/* Header styles for large screens */
+.header {
+  align-items: center;
+  background-color: white;
+  margin-top: 40px;
+  height: 655px;
+  width: 100%;
+}
+
+/* Search input and button styles */
+.h1 {
+  padding-top: 60px;
+  color: black;
   font-size: 50px;
   font-weight: bold;
   font-style: italic;
 }
 
-/* Existing styles... */
+.searchBarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
 
-/* Add this style for the white card */
+.inputContainer {
+  position: relative;
+  width: 70%;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 5px solid #7e7e7e;
+  border-radius: 20px;
+  outline: none;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #5b6b72;
+}
+
+.searchButton {
+  background-color: #5b6b72;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.searchButton:hover {
+  background-color: #1f262d;
+}
+
+/* Loading icon styles */
+.loadingIcon {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Card styles */
 .card {
-  width: 500px;
+  width: 70%;
   background-color: #fff;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* You can adjust the shadow as needed */
-  border-radius: 10px; /* Adjust the radius for curved corners */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   padding: 20px;
-  margin-top: 20px; /* Adjust the spacing between the search bar and the card */
+  margin-top: 20px;
   margin: 20px auto;
 }
 
-/* Existing styles... */
-
+/* Your existing styles... */

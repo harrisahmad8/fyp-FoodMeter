@@ -29,7 +29,7 @@ export const Navbar=()=>{
     }
     return(
         
-        <div className="shadow-md w-full fixed top-0
+        <div className="shadow-lg w-full fixed top-0
          left-0">
             <div className="md:flex sm: items-center justify-between  bg-black py-4 md:px-10 px-7" >
                 <Link className="text-blue-500 text-xl" to={'/'}>
@@ -37,7 +37,7 @@ export const Navbar=()=>{
             <ul className="md:flex md:items-center justify-center "> 
             {
                 links.map((link)=>(
-                    <li key={link.name} className="md:ml-10 text-xl text-black hover:text-blue-500 flex space-x-4">
+                    <li key={link.name} className="md:ml-10 text-xl text-white hover:text-blue-500 flex space-x-4">
                         <NavLink to={link.to}  className="text-white hover:text-blue-500 flex space-x-4" 
                 activeClassName="text-blue-500" >{link.name}</NavLink>
                     </li>
