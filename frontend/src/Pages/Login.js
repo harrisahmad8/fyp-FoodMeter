@@ -70,6 +70,7 @@ export const Login=()=> {
   });
 
   return (
+    <div className={styles.container}>
     <div className={styles.loginWrapper}>
       <div className={styles.loginHeader}>Food Meter</div>
       <TextInput
@@ -78,7 +79,7 @@ export const Login=()=> {
         name="email"
         onBlur={handleBlur}
         onChange={handleChange}
-        placeholder="email"
+        placeholder="Email"
         error={errors.email && touched.email ? 1 : undefined}
         errormessage={errors.email}
       />
@@ -88,7 +89,7 @@ export const Login=()=> {
         value={values.password}
         onBlur={handleBlur}
         onChange={handleChange}
-        placeholder="password"
+        placeholder="Password"
         error={errors.password && touched.password ? 1 : undefined}
         errormessage={errors.password}
       />
@@ -99,6 +100,7 @@ export const Login=()=> {
     >
       Login
     </button>
+    <div className={styles.reg}>
       <span>
         Don't have an account?{" "}
         <button
@@ -108,8 +110,10 @@ export const Login=()=> {
           Register
         </button>
       </span>
+      </div>
       {error !== "" ? <p className={styles.errorMessage}>{error}</p> : ""}
       {isLoading && <Loader text="please wait" />}
+    </div>
     </div>
   );
 }
