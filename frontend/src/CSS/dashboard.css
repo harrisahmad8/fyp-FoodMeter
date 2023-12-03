@@ -47,6 +47,32 @@ body {
     padding: 0 30px 0 30px;
     box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
   }
+  .header-right{
+    display: flex;
+    margin-left: auto;
+    
+  }
+ 
+  
+  .logButton{
+    
+      background-color:transparent; /* Example background color, adjust as needed */
+      color: red; /* Example text color, adjust as needed */
+      padding: 8px 12px;
+      border:1px solid grey;
+      cursor: pointer;
+      border-radius: 4px;
+      
+      margin-top: 5px; /* Adjust the margin as needed */
+    
+  }
+
+  .logButton:hover {
+    
+    border: 1px solid red;
+    /* Example hover background color, adjust as needed */
+  }
+  
   
   .menu-icon {
     display: none;
@@ -76,6 +102,7 @@ body {
   }
   
   .sidebar-brand {
+    color: #3498db;
     margin-top: 15px;
     font-size: 20px;
     font-weight: 700;
@@ -84,6 +111,7 @@ body {
   .sidebar-list {
     padding: 0;
     list-style-type: none;
+    
   }
   
   .sidebar-list-item {
@@ -94,6 +122,11 @@ body {
   .sidebar-list-item:hover {
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
+  }
+  .active {
+    background-color: black; /* Change this to your desired background color */
+    color: #ffffff; /* Change this to your desired text color */
+    /* Add any other styles you want for the active class */
   }
   
   .sidebar-list-item > a {
@@ -181,6 +214,11 @@ body {
   
   
   /* Medium <= 992px */
+  @media screen and (min-width: 1000px){
+    .header-right{
+      padding-left: 0px;
+    }
+  }
     
   @media screen and (max-width: 992px) {
     .grid-container {
@@ -189,6 +227,9 @@ body {
       grid-template-areas:
         'header'
         'main';
+    }
+    .header-right{
+      padding-left: 0px;
     }
   
     #sidebar {
@@ -211,6 +252,9 @@ body {
       gap: 10px;
       margin-bottom: 0;
     }
+    .header-right{
+      padding-left: 0px;
+    }
   
     .charts {
       grid-template-columns: 1fr;
@@ -221,7 +265,7 @@ body {
   /* Extra Small <= 576px */
   
   @media screen and (max-width: 576px) {
-    .hedaer-left {
-      display: none;
+    .header-right {
+      padding-left: 20px;
     }
   }

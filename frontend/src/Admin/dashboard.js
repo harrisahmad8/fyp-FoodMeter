@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {Header} from './components/header'
 import {Sidebar} from './components/sidebar'
 import {Home} from './components/home';
+import '../CSS/dashboard.css'
 
 
 export const Dashboard=()=> {

@@ -1,21 +1,33 @@
+
 import React from 'react'
+import {useState,useEffect,useRef} from 'react';
 import 
- {BsFillBellFill, BsFillEnvelopeFill, BsPersonCircle, BsSearch, BsJustify}
+ {  BsJustify}
  from 'react-icons/bs'
 
 export const Header=({OpenSidebar})=> {
+
+
+  
+
+const handleLogout=()=>{
+
+}
+
   return (
     <header className='header'>
         <div className='menu-icon'>
             <BsJustify className='icon' onClick={OpenSidebar}/>
         </div>
-        <div className='header-left'>
-            <BsSearch  className='icon'/>
-        </div>
+        
         <div className='header-right'>
-            <BsFillBellFill className='icon'/>
-            <BsFillEnvelopeFill className='icon'/>
-            <BsPersonCircle className='icon'/>
+        <div className='user-icon'>
+          
+            <button className='logButton' onClick={handleLogout}>Logout</button>
+            {/* Add more dropdown menu items as needed */}
+          </div>
+      
+            
         </div>
     </header>
   
