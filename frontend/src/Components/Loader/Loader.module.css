@@ -1,0 +1,21 @@
+loaderOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for the desired level of blur */
+    backdrop-filter: blur(8px); /* Adjust the blur value as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure the loader is on top of other content */
+  }
+  
+  .loaderWrapper {
+    text-align: center;
+    background: white; /* Set the background color for the loader */
+    padding: 20px;
+    border-radius: 8px;
+  }
+  

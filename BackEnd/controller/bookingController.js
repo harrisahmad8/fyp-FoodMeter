@@ -5,7 +5,7 @@ const BookingsDto=require('../dto/booking')
 const mongodbIdPattern = /^[0-9a-fA-F]{24}$/;
 const bookingController = {
   async create(req, res, next) {
-    //validate user data
+   
     const userBookingSchema = Joi.object({
       name: Joi.string().min(3).max(30).required(),
       email: Joi.string().email().required(),

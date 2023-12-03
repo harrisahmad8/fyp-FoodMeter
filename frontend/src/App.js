@@ -13,18 +13,24 @@ import {Protected} from "./Components/Protected/Protected";
 import { Error } from "./Pages/Error/Error";
 import { ReviewPortal } from "./Pages/reviewPortal";
 import { Search } from "./Pages/search";
+import { useSelector } from "react-redux";
+import { useAutoLogin } from "./Components/hooks/useAutoLogin";
+import { Loader } from "./Components/Loader/Loader";
 
 
 
 function App() {
-const isAuth=true;
+  const isAuth = useSelector((state) => state.user.auth);
+  const loading=useAutoLogin();
 
-  return (
+  return loading ? (
+    <Loader text="please wait..."/>):(
     <div className="App">
       <Router>
         <Routes>
+        <Route path="/" exact element={<Protected isAuth={isAuth}><HomePage/></Protected>}  />
         <Route path="/login" exact element={< Login/>} />
-          <Route path="/" exact element={<Protected isAuth={isAuth}><HomePage/></Protected>}  />
+         
           <Route path="/search" element={<Protected isAuth={isAuth}><Search/></Protected>} />
 
 

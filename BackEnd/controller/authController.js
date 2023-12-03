@@ -95,10 +95,7 @@ const authController = {
   },
 
   async login(req, res, next) {
-    // 1. validate user input
-    // 2. if validation error, return error
-    // 3. match username and password
-    // 4. return response
+   
     console.log(req.body.email)
     console.log(req.body.password)
     const userLoginSchema = Joi.object({
@@ -189,6 +186,7 @@ const authController = {
     } catch (error) {
       return next(error);
     }
+    console.log("hello")
 
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");

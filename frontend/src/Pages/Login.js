@@ -7,16 +7,21 @@ import { login } from "../api/internal";
 import { setUser } from "../store/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../Components/Loader/Loader";
 
 
 export const Login=()=> {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+  const [isLoading,SetIsLoading]=useState(false)
 
   const [error, setError] = useState("");
+  const [isButtonClicked,setIsButtonClicked]=useState(false)
 
   const handleLogin = async () => {
+    SetIsLoading(true)
+
     const data = {
       email: values.email,
       password: values.password,
@@ -25,22 +30,35 @@ export const Login=()=> {
     const response = await login(data);
 
     if (response.status === 200) {
-      // 1. setUser
+      
       const user = {
         _id: response.data.user._id,
         email: response.data.user.email,
         name: response.data.user.name,
+        role:response.data.user.role,
         auth: response.data.auth,
       };
 
       dispatch(setUser(user));
-      // 2. redirect -> homepage
-      navigate("/");
+      if (user.role==="admin") {
+        navigate("/admin")
+      } else if (user.role==="restaurant owner") {
+        navigate("/restaurantHome")
+        
+      } else {
+
+         navigate("/");
+      }
+      SetIsLoading(false)
     } else if (response.code === "ERR_BAD_REQUEST") {
-      // display error message
+      SetIsLoading(false)
       setError(response.response.data.message);
     }
   };
+  const handleButtonClick= ()=>{
+    setIsButtonClicked(true)
+    handleLogin()
+  }
 
   const { values, touched, handleBlur, handleChange, errors } = useFormik({
     initialValues: {
@@ -74,18 +92,13 @@ export const Login=()=> {
         error={errors.password && touched.password ? 1 : undefined}
         errormessage={errors.password}
       />
-      <button
-        className={styles.logInButton}
-        onClick={handleLogin}
-        disabled={
-          !values.email ||
-          !values.password ||
-          errors.email ||
-          errors.password
-        }
-      >
-        Log In
-      </button>
+       <button
+      className={`${styles.logInButton} ${isButtonClicked ? styles.clickedButton : ''}`}
+      onClick={handleButtonClick}
+      disabled={!values.email || !values.password || errors.email || errors.password}
+    >
+      Login
+    </button>
       <span>
         Don't have an account?{" "}
         <button
@@ -96,7 +109,7 @@ export const Login=()=> {
         </button>
       </span>
       {error !== "" ? <p className={styles.errorMessage}>{error}</p> : ""}
+      {isLoading && <Loader text="please wait" />}
     </div>
   );
 }
-

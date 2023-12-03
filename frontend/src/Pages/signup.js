@@ -3,21 +3,21 @@ import styles from "../CSS/Signup.module.css";
 import TextInput from "../Components/TextInput/TextInput";
 import signupSchema from "../Components/schemas/SignupSchema";
 import { useFormik } from "formik";
-import { setUser } from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { signup } from "../api/internal";
+import { Loader } from "../Components/Loader/Loader";
 
-
-export const  SignUp=()=> {
+export const SignUp = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [error, setError] = useState("");
-
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [isLoading,SetIsLoading]=useState(false)
   const handleSignup = async () => {
+    setIsButtonClicked(true);
+    SetIsLoading(true);
     const data = {
       name: values.name,
-      role:values.role,
+      role: values.role,
       password: values.password,
       confirmPassword: values.confirmPassword,
       email: values.email,
@@ -27,21 +27,14 @@ export const  SignUp=()=> {
     const response = await signup(data);
 
     if (response.status === 201) {
-      // setUser
-      const user = {
-        _id: response.data.user._id,
-        email: response.data.user.email,
-        role: response.data.user.role,
-        auth: response.data.auth,
-      };
-
-      dispatch(setUser(user));
-
-      // redirect homepage
-      navigate("/");
+      alert("Sign up successfull! You can now login")
+     
+      navigate("/login");
+      SetIsLoading(false);
     } else if (response.code === "ERR_BAD_REQUEST") {
       // display error message
       setError(response.response.data.message);
+      SetIsLoading(false);
     }
   };
 
@@ -52,7 +45,7 @@ export const  SignUp=()=> {
       email: "",
       password: "",
       confirmPassword: "",
-      number:"",
+      number: "",
     },
 
     validationSchema: signupSchema,
@@ -60,8 +53,11 @@ export const  SignUp=()=> {
 
   return (
     <div className={styles.signupWrapper}>
-      <div className={styles.signupHeader}>Create an account</div>
-      <TextInput
+      <div className={styles.signupHeader}>Sign Up</div>
+    
+
+      <TextInput 
+        className={styles.input}
         type="text"
         name="name"
         value={values.name}
@@ -72,8 +68,8 @@ export const  SignUp=()=> {
         errormessage={errors.name}
       />
 
-
       <TextInput
+        className={styles.input}
         type="text"
         name="email"
         value={values.email}
@@ -85,6 +81,7 @@ export const  SignUp=()=> {
       />
 
       <TextInput
+        className={styles.input}
         type="password"
         name="password"
         value={values.password}
@@ -96,6 +93,7 @@ export const  SignUp=()=> {
       />
 
       <TextInput
+        className={styles.input}
         type="password"
         name="confirmPassword"
         value={values.confirmPassword}
@@ -108,33 +106,34 @@ export const  SignUp=()=> {
         errormessage={errors.confirmPassword}
       />
       <TextInput
+        className={styles.input}
         type="text"
         name="number"
         value={values.number}
         onChange={handleChange}
         onBlur={handleBlur}
         placeholder="Number"
-        error={
-          errors.number && touched.number ? 1 : undefined
-        }
+        error={errors.number && touched.number ? 1 : undefined}
         errormessage={errors.number}
       />
       <select
-  name="role"
-  value={values.role}
-  onChange={handleChange}
-  onBlur={handleBlur}
-  error={errors.role && touched.role ? 1 : undefined}
->
-  <option value="" label="Select a role" />
-  <option value="admin" label="Admin" />
-  <option value="user" label="User" />
-  <option value="restaurant owner" label="Restaurant Owner" />
-</select>
-{errors.role && touched.role && <div>{errors.role}</div>}
+        name="role"
+        value={values.role}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={errors.role && touched.role ? 1 : undefined}
+      >
+        <option value="" label="Select a role" />
+        <option value="admin" label="Admin" />
+        <option value="user" label="User" />
+        <option value="restaurant owner" label="Restaurant Owner" />
+      </select>
+      {errors.role && touched.role && <div>{errors.role}</div>}
 
       <button
-        className={styles.signupButton}
+        className={`${styles.signupButton} ${
+          isButtonClicked ? styles.clickedButton : ""
+        }`}
         onClick={handleSignup}
         disabled={
           !values.role ||
@@ -142,8 +141,8 @@ export const  SignUp=()=> {
           !values.name ||
           !values.confirmPassword ||
           !values.email ||
-          !values.number||
-          errors.number||
+          !values.number ||
+          errors.number ||
           errors.role ||
           errors.password ||
           errors.confirmPassword ||
@@ -162,6 +161,7 @@ export const  SignUp=()=> {
       </span>
 
       {error !== "" ? <p className={styles.errorMessage}>{error}</p> : ""}
+      {isLoading && <Loader text="please wait" />}
     </div>
   );
-}
+};

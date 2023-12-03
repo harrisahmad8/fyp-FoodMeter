@@ -32,3 +32,31 @@ export const signup = async (data) => {
 
   return response;
 };
+
+export const signout = async () => {
+  let response;
+  try {
+    response = await api.post(`${baseURL}/logout`);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+export const autoLogin= async() =>{
+  let response;
+  try { 
+    response= await api.get(`${baseURL}/refresh`,
+    {
+    withCredentials:true,
+    }
+    );
+    
+  } catch (error) {
+    return error;
+    
+  }
+  return response;
+
+}
