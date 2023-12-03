@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 
-import { BrowserRouter as Router, Routes, Route , Redirect} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SignUp } from "./Pages/signup";
 import { Login } from "./Pages/Login";
 import { Favorites } from "./Pages/favorites";
@@ -16,6 +16,7 @@ import { Search } from "./Pages/search";
 import { useSelector } from "react-redux";
 import { useAutoLogin } from "./Components/hooks/useAutoLogin";
 import { Loader } from "./Components/Loader/Loader";
+import {Dashboard} from "./Admin/dashboard"
 
 
 
@@ -29,6 +30,7 @@ function App() {
       <Router>
         <Routes>
         <Route path="/" exact element={<Protected isAuth={isAuth}><HomePage/></Protected>}  />
+        <Route path="/dashboard" exact element={<Dashboard/>}/>
         <Route path="/login" exact element={< Login/>} />
          
           <Route path="/search" element={<Protected isAuth={isAuth}><Search/></Protected>} />

@@ -25,6 +25,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-scripts": "^5.0.1",
+    "recharts": "^2.10.3",
     "styled": "^1.0.0",
     "styled-components": "^5.3.10",
     "typescript": "^5.0.4",
