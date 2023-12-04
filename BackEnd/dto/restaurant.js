@@ -5,7 +5,8 @@ class RestaurantDTO{
         this.branchAddress=restaurant.branchAddress;
         this.logoPath=restaurant.logoPath;
         this.userRating=restaurant.userRating;
-        this.foodType;restaurant.foodType;
+        this.foodType=restaurant.foodType;
+        this.featured=restaurant.featured;
     }
 }
 module.exports=RestaurantDTO;

@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { useAutoLogin } from "./Components/hooks/useAutoLogin";
 import { Loader } from "./Components/Loader/Loader";
 import {Dashboard} from "./Admin/dashboard"
+import { Admin } from "./Admin/Admin";
 
 
 
@@ -30,7 +31,6 @@ function App() {
       <Router>
         <Routes>
         <Route path="/" exact element={<Protected isAuth={isAuth}><HomePage/></Protected>}  />
-        <Route path="/dashboard" exact element={<Dashboard/>}/>
         <Route path="/login" exact element={< Login/>} />
          
           <Route path="/search" element={<Protected isAuth={isAuth}><Search/></Protected>} />
@@ -46,6 +46,7 @@ function App() {
           <Route path="/booking" exact element={<Protected isAuth={isAuth}><Mybookings/></Protected> }/>
           <Route path="/NewBooking" exact element={<Protected isAuth={isAuth}><Booking/> </Protected>}/>
           <Route path="/ReviewPortal" exact element={<Protected isAuth={isAuth}><ReviewPortal/></Protected>}/>
+          <Route path="/admin/*" exact element={<Protected isAuth={isAuth}><Admin/></Protected>}/>
           <Route path="*" element={<Error/>}/>
       </Routes>
         

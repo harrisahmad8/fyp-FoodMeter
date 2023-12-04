@@ -6,6 +6,7 @@ const auth=require('../middlewares/auth');
 const restaurantController= require('../controller/restaurantController');
 const bookingController=require('../controller/bookingController');
 const commentController=require('../controller/commentController');
+const userController=require('../controller/userController')
 const path = require('path');
 const pythonScriptPath = path.join(__dirname, '../controller/searchController.py');
 
@@ -26,6 +27,9 @@ router.post('/logout',auth, authController.logout)
 
 //refresh
 router.get('/refresh',authController.refresh);
+
+//All users
+router.get('/users',userController.AllUsers);
 
 //restaurants
 

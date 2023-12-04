@@ -1,16 +1,20 @@
 
 import React from 'react'
-import {useState,useEffect,useRef} from 'react';
+
+import { signout } from '../../api/internal';
+import { useDispatch } from 'react-redux';
+import { resetUser} from '../../store/userSlice';
+
 import 
  {  BsJustify}
- from 'react-icons/bs'
+ from 'react-icons/bs';
 
 export const Header=({OpenSidebar})=> {
-
-
   
-
-const handleLogout=()=>{
+    const dispatch=useDispatch();
+const handleLogout= async()=>{
+    await signout();
+    dispatch(resetUser())
 
 }
 

@@ -209,8 +209,57 @@ body {
     margin-top: 60px;
     height: 300px;
   }
+.userTable{
+  margin-top: 70px;
+}
+
+  table {
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    border-collapse: collapse;
+    border-radius: 100px;
+  }
   
-  /* End Main  */
+  thead {
+    background-color:#1d2634;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  
+  thead th {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  tbody {
+    background-color:#1d2634;
+    color: rgba(255, 255, 255, 0.95);
+   
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  tbody td {
+    padding: 10px 10px 10px 0px;
+   
+  }
+
+  .tHeading{
+    padding-top: 20px;
+    
+    text-align: left;
+    color:#2962ff;
+    font-weight: bolder;
+    
+  }
+  .t2Heading{
+    padding-top: 20px;
+    
+    text-align: left;
+    color:#ff6d00;
+    font-weight: bolder;
+  }
+  
+
   
   
   /* Medium <= 992px */

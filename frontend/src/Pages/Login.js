@@ -41,7 +41,7 @@ export const Login=()=> {
 
       dispatch(setUser(user));
       if (user.role==="admin") {
-        navigate("/admin")
+        navigate("/admin/")
       } else if (user.role==="restaurant owner") {
         navigate("/restaurantHome")
         

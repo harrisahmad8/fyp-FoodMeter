@@ -6,7 +6,7 @@ const restaurantSchema=new Schema({
     logoPath:{type: String,required:true},
     userRating:{type:Number,required:true},
     foodType:{type:String},
-    featured:{type:Boolean},
+    featured:{type:Boolean,default:false},
 
 },
    {timestamps:true}

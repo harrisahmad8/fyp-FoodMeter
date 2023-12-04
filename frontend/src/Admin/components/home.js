@@ -1,56 +1,22 @@
 import React from 'react'
 import 
-{ BsBuilding, BsBuildingFill, BsPeopleFill, BsFillBellFill}
+{ BsBuilding, BsBuildingFill, BsPeopleFill}
  from 'react-icons/bs'
- import 
- { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
- from 'recharts';
+ 
 
 export const Home=()=> {
-    const data = [
-        {
-          name: 'Page A',
-          uv: 4000,
-          pv: 2400,
-          amt: 2400,
-        },
-        {
-          name: 'Page B',
-          uv: 3000,
-          pv: 1398,
-          amt: 2210,
-        },
-        {
-          name: 'Page C',
-          uv: 2000,
-          pv: 9800,
-          amt: 2290,
-        },
-        {
-          name: 'Page D',
-          uv: 2780,
-          pv: 3908,
-          amt: 2000,
-        },
-        {
-          name: 'Page E',
-          uv: 1890,
-          pv: 4800,
-          amt: 2181,
-        },
-        {
-          name: 'Page F',
-          uv: 2390,
-          pv: 3800,
-          amt: 2500,
-        },
-        {
-          name: 'Page G',
-          uv: 3490,
-          pv: 4300,
-          amt: 2100,
-        },
-      ];
+  const usersData = [
+    { name: 'John Doe', email: 'john@example.com', number: '1234567890', role: 'Admin' },
+    { name: 'Jane Doe', email: 'jane@example.com', number: '9876543210', role: 'User' },
+    // Add more user data as needed
+  ];
+
+  const restaurantsData = [
+    { name: 'Restaurant 1', rating: 4.5, location: 'City A', featured: true },
+    { name: 'Restaurant 2', rating: 3.8, location: 'City B', featured: false },
+    
+  ];
+    
      
 
   return (
@@ -83,53 +49,55 @@ export const Home=()=> {
             </div>
             
         </div>
-
-        <div className='charts'>
-            <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-            }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
-                </BarChart>
-            </ResponsiveContainer>
-
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                width={500}
-                height={300}
-                data={data}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                }}
-                >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                </LineChart>
-            </ResponsiveContainer>
-
-        </div>
+        <div className='userTable'>
+          <h1 className='tHeading'>Users</h1>
+        <table>
+          
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Number</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usersData.map((user, index) => (
+                <tr key={index}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.number}</td>
+                  <td>{user.role}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+          <div>
+          <h1 className='t2Heading'>Restaurants</h1>
+        <table>
+          
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Rating</th>
+                <th>Location</th>
+                <th>Featured</th>
+              </tr>
+            </thead>
+            <tbody>
+              {restaurantsData.map((user, index) => (
+                <tr key={index}>
+                  <td>{user.name}</td>
+                  <td>{user.rating}</td>
+                  <td>{user.location}</td>
+                  <td>{user.featured}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+        
     </main>
   )
 }
