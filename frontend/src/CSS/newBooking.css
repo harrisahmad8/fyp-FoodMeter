@@ -9,10 +9,21 @@
   background-color: #fff;
   height: 740px;
   width: 100%;
-  background-image: url(../images/bgimg.jpg);
+  background-color: white;
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.contain{
+  margin:auto;
+  margin-right: 300px;
+  margin-left: 300px;
+  background-color: #6d6b6b;
+  padding-bottom: 30px;
+  border-radius: 50px;
+  box-shadow: 10px 10px 10px black;
+}
+
 
 .main-content {
   flex: 1;
@@ -20,26 +31,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, #71b00b, #129a95);
+  background-color: white;
 }
 
 .booking-form {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  background-color: #a4963d;
+  background-color: #3b3b3b;
   border-radius: 30px;
   padding: 40px;
   box-shadow: 10px 10px 5px black;
   margin-top: 70px;
-  margin-bottom: 70px;
+  margin-bottom: 30px;
 }
 
 .title {
   color: #fff;
   font-size: 80px;
   text-align: center;
-  margin-top: 200px;
+  margin-top: 220px;
+  padding-top: 20px;
   font-style: italic;
   font-weight: bold;
 }
@@ -49,7 +61,6 @@
   font-size: 30px;
   text-align: center;
   font-style: italic;
-  font-weight: bold;
   margin-top: 20px;
 }
 

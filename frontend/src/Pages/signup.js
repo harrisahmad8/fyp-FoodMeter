@@ -153,7 +153,7 @@ export const SignUp = () => {
         Sign Up
       </button>
 
-      <span>
+      <span className={styles.sp}>
         Already have an account?{" "}
         <button className={styles.login} onClick={() => navigate("/login")}>
           Log In

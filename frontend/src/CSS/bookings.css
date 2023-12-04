@@ -2,17 +2,10 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-image: url(../images/bgimg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  background-color: white;
 }
 
 .body{
-  background-image: url(../images/bgimg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 .content {
@@ -21,19 +14,19 @@
 }
 
 .heading {
-  color: white;
+  color: black;
   font-size: 60px;
   font-weight: bold;
   font-style: italic;
-  margin-top: 50px;
+  margin-top: 80px;
   margin-bottom: 20px;
 }
 
 .table-container {
   padding: 60px; /* Add padding */
-  background-color: #25272B; /* Set the background color */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  background-color: #3e3f3f; /* Set the background color */
+  box-shadow: 10px 10px 5px black;
+  border-radius: 30px;
   overflow: hidden;
 }
 

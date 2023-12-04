@@ -12,12 +12,12 @@
   }
   
   .signupHeader {
-    font-size: 60px;
+    color: #2c3e50;
+    font-size: 69px;
     font-weight: bold;
     font-style: italic;
     width: inherit;
     text-align: center;
-    margin-bottom: 10px;
   }
   
   
@@ -60,4 +60,8 @@
     margin: 20px 0;
     font-size: 20px;
     font-weight: bold;
+  }
+
+  .sp{
+    color: #2c3e50;
   }

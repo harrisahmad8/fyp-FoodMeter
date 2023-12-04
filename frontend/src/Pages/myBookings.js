@@ -51,11 +51,13 @@ export const Mybookings = () => {
         </div>
 
         <div className="bookPage">
+          <div className="contain">
           <h1 className="title">Book a Table</h1>
           <h1 className="caption">Make a reservation at your favorite Restaurant</h1>
 
           <div className="bookButton" onClick={handleClick}>
             <h6 className="book">Book</h6>
+          </div>
           </div>
         </div>
 
