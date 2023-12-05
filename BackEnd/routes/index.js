@@ -29,7 +29,7 @@ router.post('/logout',auth, authController.logout)
 router.get('/refresh',authController.refresh);
 
 //All users
-router.get('/users',userController.AllUsers);
+router.get('/users',auth,userController.AllUsers);
 
 //restaurants
 
@@ -38,10 +38,13 @@ router.get('/restaurant',auth,restaurantController.getAll);
 //restaurant by id
 router.get('/restaurant/:id',auth,restaurantController.getById);
 
+//featured restaurants
+
+router.get('/featuredRestaurant',auth,restaurantController.featured)
 //Make a booking
 router.post('/booking',auth,bookingController.create);
 
-router.get('/booking/:id',auth,bookingController.getByUserId)
+router.get('/booking/:id',auth,bookingController.getByUserId);
 //store a comment 
 
 router.post('/comment',auth,commentController.create);

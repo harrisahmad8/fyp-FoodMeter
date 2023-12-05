@@ -59,4 +59,56 @@ export const autoLogin= async() =>{
   }
   return response;
 
+};
+
+export const allUsers= async()=>{
+  let response;
+  try {
+    response= await api.get(`${baseURL}/users`,
+    {
+      withCredentials:true,
+    }
+    );
+    
+  } catch (error) {
+
+    return (error)
+    
+  }
+  return response
 }
+
+export const allRestaurant= async()=>{
+  let response;
+  try {
+    response= await api.get(`${baseURL}/restaurant`,
+    {
+      withCredentials:true,
+    }
+    )
+
+    
+  } catch (error) {
+    return (error)
+    
+  }
+  return response;
+}
+
+export const featuredRestaurant= async()=>{
+  let response;
+  try {
+    response= await api.get(`${baseURL}/featuredRestaurant`,
+    {
+      withCredentials:true,
+    }
+    )
+    
+  } catch (error) {
+    return (error)
+    
+  }
+  return response
+}
+
+

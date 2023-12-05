@@ -11,6 +11,7 @@ const userController={
          const dto = new UserDTO(users[i]);
          userDto.push(dto);
        }
+       console.log("user")
  
        return res.status(200).json({users: userDto });
      } catch (error) {

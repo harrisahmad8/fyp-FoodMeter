@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {Header} from './components/header'
 import {Sidebar} from './components/sidebar'
-import {Home} from './components/home';
+import { HomeUser } from './components/homeUser'
 import '../CSS/dashboard.css'
 
 
@@ -16,7 +16,7 @@ export const AdminUser=()=> {
     <div className='grid-container'>
       <Header OpenSidebar={OpenSidebar}/>
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-      <Home />
+      <HomeUser />
     </div>
   )
 }

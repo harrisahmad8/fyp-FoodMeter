@@ -15,6 +15,7 @@ const restaurantController = {
         const dto = new RestaurantDto(restaurants[i]);
         restaurantDto.push(dto);
       }
+      console.log("all");
 
       return res.status(200).json({ restaurants: restaurantDto });
     } catch (error) {
@@ -45,6 +46,28 @@ const restaurantController = {
     const restaurantDto = new RestaurantDto(restaurant);
 
     return res.status(200).json({ restaurant: restaurantDto });
+  },
+
+  async featured(req,res,next){
+    let restaurant;
+    try {
+       restaurant=await Restaurant.find({featured:true})
+    } catch (error) {
+      return next(error)
+      
+    }
+    const restaurantDto = [];
+
+      for (let i = 0; i < restaurant.length; i++) {
+        const dto = new RestaurantDto(restaurant[i]);
+        restaurantDto.push(dto);
+      }
+    
+    console.log("featured")
+
+    return res.status(200).json({ restaurant: restaurantDto });
+    
+
   },
 };
 

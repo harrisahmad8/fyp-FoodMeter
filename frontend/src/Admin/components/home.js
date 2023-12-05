@@ -1,58 +1,82 @@
-import React from 'react'
-import 
-{ BsBuilding, BsBuildingFill, BsPeopleFill}
- from 'react-icons/bs'
- 
+import { useState, useEffect } from "react";
+import { BsBuilding, BsBuildingFill, BsPeopleFill } from "react-icons/bs";
+import { allUsers } from "../../api/internal";
+import { allRestaurant } from "../../api/internal";
+import { featuredRestaurant } from "../../api/internal";
+import { Loader } from "../../Components/Loader/Loader";
+export const Home = () => {
+  const [userData, setUserData] = useState([]);
+  const [restaurantData, setRestaurantData] = useState([]);
+  const [featuredRestaurantsData, setFeaturedRestaurantData] = useState([]);
+  const [countU, setCountU] = useState(0);
+  const [countR, setCountR] = useState(0);
+  const [countF, setCountF] = useState(0);
+  const [loading, SetLoading] = useState(true);
 
-export const Home=()=> {
-  const usersData = [
-    { name: 'John Doe', email: 'john@example.com', number: '1234567890', role: 'Admin' },
-    { name: 'Jane Doe', email: 'jane@example.com', number: '9876543210', role: 'User' },
-    // Add more user data as needed
-  ];
+  useEffect(() => {
+    (async function fetchData() {
+      const getUser = await allUsers();
+      if (getUser.status === 200) {
+        setUserData(getUser.data.users);
+      }
 
-  const restaurantsData = [
-    { name: 'Restaurant 1', rating: 4.5, location: 'City A', featured: true },
-    { name: 'Restaurant 2', rating: 3.8, location: 'City B', featured: false },
-    
-  ];
-    
-     
+      const getRestaurant = await allRestaurant();
+      if (getRestaurant.status === 200) {
+        setRestaurantData(getRestaurant.data.restaurants);
+      }
+
+      const getFeatured = await featuredRestaurant();
+      if (getFeatured.status === 200) {
+        setFeaturedRestaurantData(getFeatured.data.restaurant);
+      }
+      setCountU(getUser.data.users.length);
+      console.log(userData);
+
+      setCountR(getRestaurant.data.restaurants.length);
+      console.log(restaurantData);
+      setCountF(getFeatured.data.restaurant.length);
+      console.log(featuredRestaurant);
+
+      SetLoading(false)
+    })();
+  }, []);
 
   return (
-    <main className='main-container'>
-        <div className='main-title'>
-            <h3>DASHBOARD</h3>
-        </div>
+    <main className="main-container">
+      <div className="main-title">
+        <h3>DASHBOARD</h3>
+      </div>
+      {loading ? (
+          <Loader text={" please wait ..."}/> // Display a loading spinner while data is being fetched
+        ):(<p></p>)}
 
-        <div className='main-cards'>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3>Users</h3>
-                    <BsPeopleFill className='card_icon'/>
-                </div>
-                <h1>300</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3>Restaurants</h3>
-                    <BsBuilding className='card_icon'/>
-                </div>
-                <h1>12</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3>Featured Restaurants</h3>
-                    <BsBuildingFill className='card_icon'/>
-                </div>
-                <h1>33</h1>
-            </div>
-            
+      <div className="main-cards">
+        <div className="card">
+          <div className="card-inner">
+            <h3>Users</h3>
+            <BsPeopleFill className="card_icon" />
+          </div>
+          <h1>{countU}</h1>
         </div>
-        <div className='userTable'>
-          <h1 className='tHeading'>Users</h1>
-        <table>
-          
+        <div className="card">
+          <div className="card-inner">
+            <h3>Restaurants</h3>
+            <BsBuilding className="card_icon" />
+          </div>
+          <h1>{countR}</h1>
+        </div>
+        <div className="card">
+          <div className="card-inner">
+            <h3>Featured Restaurants</h3>
+            <BsBuildingFill className="card_icon" />
+          </div>
+          <h1>{countF}</h1>
+        </div>
+      </div>
+      <div className="userTable">
+        <h1 className="tHeading">Users</h1>
+        {userData.length > 0 ? (
+          <table>
             <thead>
               <tr>
                 <th>Name</th>
@@ -62,7 +86,7 @@ export const Home=()=> {
               </tr>
             </thead>
             <tbody>
-              {usersData.map((user, index) => (
+              {userData.slice(0, 5).map((user, index) => (
                 <tr key={index}>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
@@ -72,13 +96,17 @@ export const Home=()=> {
               ))}
             </tbody>
           </table>
-          </div>
-          <div>
-          <h1 className='t2Heading'>Restaurants</h1>
-        <table>
-          
+        ) : (
+          <p>No user Data available</p>
+        )}
+      </div>
+      <div>
+        <h1 className="t2Heading">Restaurants</h1>
+        {restaurantData.length > 0 ? (
+          <table>
             <thead>
               <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Rating</th>
                 <th>Location</th>
@@ -86,18 +114,28 @@ export const Home=()=> {
               </tr>
             </thead>
             <tbody>
-              {restaurantsData.map((user, index) => (
+              {restaurantData.map((user, index) => (
                 <tr key={index}>
+                  <td>
+                    <img
+                      src={user.logoPath} // Assuming `logoPath` contains the URL
+                      alt={`Logo ${index + 1}`}
+                      style={{ width: "50px", height: "50px" }} // Adjust the size as needed
+                    />
+                  </td>
                   <td>{user.name}</td>
-                  <td>{user.rating}</td>
-                  <td>{user.location}</td>
+                  <td>{user.userRating}</td>
+                  <td>{user.branchAddress}</td>
                   <td>{user.featured}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          </div>
+        ) : (
+          <p>No restuarnt data available</p>
+        )}
+      </div>
         
     </main>
-  )
-}
+  );
+};
