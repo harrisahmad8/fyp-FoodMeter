@@ -1,3 +1,8 @@
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from typing import List
+import uvicorn
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -8,6 +13,20 @@ from googletrans import Translator
 import re
 import pymongo
 import time
+from fastapi.middleware.cors import CORSMiddleware
+
+app=FastAPI()
+
+origins = ["http://localhost:3000"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+@app.get("/rating/{keyword}")
 
 def get_reviews_and_info(keyword, chromedriver_path, num_reviews=10):
     # MongoDB connection string
@@ -114,3 +133,7 @@ def get_reviews_and_info(keyword, chromedriver_path, num_reviews=10):
 search_keyword = input("Enter a keyword: ")
 chromedriver_path = 'C:/Users/hp/Desktop/python/chromedriver-win64/chromedriver.exe'
 get_reviews_and_info(search_keyword, chromedriver_path, num_reviews=10)
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
