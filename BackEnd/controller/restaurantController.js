@@ -22,6 +22,28 @@ const restaurantController = {
       return next(error);
     }
   },
+  async featured(req,res,next){
+    let restaurant;
+    try {
+       restaurant=await Restaurant.find({featured:true})
+       const restaurantDto = [];
+
+      for (let i = 0; i < restaurant.length; i++) {
+        const dto = new RestaurantDto(restaurant[i]);
+        restaurantDto.push(dto);
+      }
+    
+    console.log("featured")
+
+    return res.status(200).json({ restaurant: restaurantDto });
+
+    } catch (error) {
+      return next(error)
+      
+    }
+  },
+
+
   async getById(req, res, next) {
     const getByIdSchema = Joi.object({
       id: Joi.string().regex(mongodbIdPattern).required(),
@@ -46,29 +68,8 @@ const restaurantController = {
     const restaurantDto = new RestaurantDto(restaurant);
 
     return res.status(200).json({ restaurant: restaurantDto });
-  },
-
-  async featured(req,res,next){
-    let restaurant;
-    try {
-       restaurant=await Restaurant.find({featured:true})
-    } catch (error) {
-      return next(error)
-      
-    }
-    const restaurantDto = [];
-
-      for (let i = 0; i < restaurant.length; i++) {
-        const dto = new RestaurantDto(restaurant[i]);
-        restaurantDto.push(dto);
-      }
-    
-    console.log("featured")
-
-    return res.status(200).json({ restaurant: restaurantDto });
-    
-
-  },
+  }
 };
 
+  
 module.exports = restaurantController;

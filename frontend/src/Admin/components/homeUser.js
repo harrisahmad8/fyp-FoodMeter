@@ -54,6 +54,7 @@ export const HomeUser = () => {
                   <td>{user.email}</td>
                   <td>{user.number}</td>
                   <td>{user.role}</td>
+                  <td><button className="del">Delete</button></td>
                 </tr>
               ))}
             </tbody>

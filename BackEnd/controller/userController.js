@@ -18,5 +18,9 @@ const userController={
        return next(error);
      }
    },
+   async deleteUser(req,res,next){
+    
+   }
 }
 module.exports = userController;
+

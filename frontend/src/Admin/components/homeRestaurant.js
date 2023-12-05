@@ -43,8 +43,8 @@ export const HomeRestaurant = () => {
               <tr>
                 <th></th>
                 <th>Name</th>
-                <th>Rating</th>
-                <th>Location</th>
+                <th>User Rating</th>
+                <th>System Rating</th>
                 <th>Featured</th>
               </tr>
             </thead>
@@ -60,7 +60,7 @@ export const HomeRestaurant = () => {
                   </td>
                   <td>{user.name}</td>
                   <td>{user.userRating}</td>
-                  <td>{user.branchAddress}</td>
+                  <td>{user.systemRating}</td>
                   <td>{user.featured}</td>
                 </tr>
               ))}

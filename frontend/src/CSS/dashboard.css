@@ -251,6 +251,21 @@ body {
     font-weight: bolder;
     
   }
+  .del{
+    background-color:transparent; /* Example background color, adjust as needed */
+    color: red; /* Example text color, adjust as needed */
+    padding: 8px 12px;
+    border:1px solid grey;
+    cursor: pointer;
+    border-radius: 4px;
+    
+    text-size-adjust: 1px;
+
+  }
+.del:hover{
+  border: 1px solid red;
+}
+
   .t2Heading{
     padding-top: 20px;
     

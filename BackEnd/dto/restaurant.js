@@ -5,7 +5,7 @@ class RestaurantDTO{
         this.logoPath = restaurant.logoPath;
         this.userRating = restaurant.userRating;
         this.foodType = restaurant.foodType;
-        this.featured = restaurant.featured || null;
+        this.featured = restaurant.featured ;
         this.userComments = restaurant.userComments || []; 
         this.systemComments = restaurant.systemComments || []; 
         this.systemRating = restaurant.systemRating || null;

@@ -108,8 +108,8 @@ export const Home = () => {
               <tr>
                 <th></th>
                 <th>Name</th>
-                <th>Rating</th>
-                <th>Location</th>
+                <th>User Rating</th>
+                <th>System Rating</th>
                 <th>Featured</th>
               </tr>
             </thead>
@@ -118,14 +118,14 @@ export const Home = () => {
                 <tr key={index}>
                   <td>
                     <img
-                      src={user.logoPath} // Assuming `logoPath` contains the URL
+                      src={user.logoPath} 
                       alt={`Logo ${index + 1}`}
                       style={{ width: "50px", height: "50px" }} // Adjust the size as needed
                     />
                   </td>
                   <td>{user.name}</td>
                   <td>{user.userRating}</td>
-                  <td>{user.branchAddress}</td>
+                  <td>{user.systemRating}</td>
                   <td>{user.featured}</td>
                 </tr>
               ))}
