@@ -902,7 +902,7 @@ from selenium.webdriver.chrome.service import Service
 from googletrans import Translator
 import re
 import pymongo
-from httpcore import SyncHTTPTransport
+
 
 
 def get_reviews_and_info(keyword, chromedriver_path, num_reviews=10):
