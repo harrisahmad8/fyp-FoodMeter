@@ -43,7 +43,7 @@ export const Login=()=> {
       if (user.role==="admin") {
         navigate("/admin/")
       } else if (user.role==="restaurant owner") {
-        navigate("/restaurantHome")
+        navigate("/restaurantDashboard")
         
       } else {
 

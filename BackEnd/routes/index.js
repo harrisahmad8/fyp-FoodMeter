@@ -50,6 +50,7 @@ router.get('/booking/:id',auth,bookingController.getByUserId);
 router.post('/comment',auth,commentController.create);
 
 router.get('/comment/:id',auth,commentController.getByRestaurantId)
+router.get('/restaurant/:name',auth,restaurantController.getByName)
 
 
 

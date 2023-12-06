@@ -111,4 +111,21 @@ export const featuredRestaurant= async()=>{
   return response
 }
 
+export const restaurantName=async(name) =>{
+  let response;
+  try {
+    response= await api.get(`${baseURL}/restaurant/${name}`,
+    {
+      withCredentials:true,
+    }
+    )
+    
+  } catch (error) {
+    return (error)
+    
+  }
+  return response
+}
+
+
 
