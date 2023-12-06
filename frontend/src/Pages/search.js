@@ -26,6 +26,7 @@ export const Search = () => {
       .catch(error => {
         console.error('Error:', error);
       });
+      setLoading(false)
   };
 
   return (
@@ -57,8 +58,10 @@ export const Search = () => {
             )}
             {showCard && (
               <div className={styles.card}>
-                <p>Restaurant: {responseData.keyword}</p>
-                <p>Rating: {responseData.rating.toFixed(2)}</p>
+                <p>Restaurant: {responseData.name}</p>
+                <p>Rating: {responseData.systemRating.toFixed(2)}</p>
+                <p>food type:{responseData.foodType}</p>
+                <p> System Comments:{responseData.systemComments}</p>
               </div>
             )}
           </div>

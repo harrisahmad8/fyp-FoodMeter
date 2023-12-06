@@ -2,6 +2,18 @@ import nltk
 from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from googletrans import Translator
+import re
+import pymongo
+
 
 app = FastAPI()
 
@@ -866,46 +878,43 @@ def adjust_for_negation(sentiments, text):
                     break
                 j += 1
 
-def restaurant_review_rating(review):
-    # Analyze the sentiment of the review
-    sentiment_scores = sia.polarity_scores(review)
+def restaurant_review_rating(reviews):
+    total_score = 0.0
 
-   
-    adjust_for_negation(sentiment_scores, review)
+    for review in reviews:
+        # Analyze the sentiment of the review
+        sentiment_scores = sia.polarity_scores(review)
 
-    
-    compound_score = sentiment_scores['compound']
+        # Adjust for negation if needed
+        adjust_for_negation(sentiment_scores, review)
+
+        # Sum up the compound scores
+        total_score += sentiment_scores['compound']
+
+    # Calculate the average score
+    average_score = total_score / len(reviews)
+
+    # Map the average score to the 1-5 rating range
     min_score = -1.0
     max_score = 1.0
-    scaled_rating = 1 + 4 * (compound_score - min_score) / (max_score - min_score)
+    scaled_rating = 1 + 4 * (average_score - min_score) / (max_score - min_score)
 
     # Ensure the rating is within the 1-5 range
     final_rating = max(1, min(5, scaled_rating))
 
     return final_rating
+class RestaurantResponse(BaseModel):
+    name: str
+    foodType: list
+    systemComments: list
+    systemRating:float
 
 
 @app.get("/rating/{keyword}")
 
-def rating(keyword: str):
-    chromedriver_path = 'C:/Users/chaud/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe'
-    review=get_reviews_and_info(keyword, chromedriver_path, num_reviews=10)
-    rating = restaurant_review_rating(review)
-    return {"keyword": keyword, "rating": rating}
 
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.service import Service
-from googletrans import Translator
-import re
-import pymongo
-
-
-
-def get_reviews_and_info(keyword, chromedriver_path, num_reviews=10):
+def get_reviews_and_info(keyword:str, num_reviews=10):
+    chromedriver_path = 'C:/Users/hp/Desktop/python/chromedriver-win64/chromedriver.exe'
     # MongoDB connection string
     mongo_uri = "mongodb+srv://chaudhryhamid655:hamid5678@cluster0.orho31g.mongodb.net/FoodMeter?retryWrites=true&w=majority"
     
@@ -972,27 +981,67 @@ def get_reviews_and_info(keyword, chromedriver_path, num_reviews=10):
                 print(f"Restaurant Name: {restaurant_name}")
 
                 # Check if the restaurant name already exists in the database
-                if collection.find_one({'name': restaurant_name}):
-                    print(f"Restaurant '{restaurant_name}' already exists in the database. Skipping.")
-                    return
+                restaurant_data = collection.find_one({'name': restaurant_name})
 
-                # Get the cuisine types using class name
-                cuisine_types = driver.find_elements(By.CLASS_NAME, 'SrqKb')
-                cuisine_list = [cuisine.text for cuisine in cuisine_types]
-                print(f"Cuisine Types: {', '.join(cuisine_list)}")
+                if restaurant_data:
+                       restaurant_data = {
+                        'name': restaurant_name,
+                        'foodType': cuisine_list,
+                        'systemComments': [review.text for review in reviews],
+                        'systemRating':rating,
+                       }     
+                    
+                       print(f"Restaurant '{restaurant_name}' already exists in the database. Skipping.")
+    
+                       print("Restaurant Data:", restaurant_data)
+                       response_data = RestaurantResponse(**restaurant_data)
+                       return (response_data)
+                else:
 
-                # Find all reviews in the "review-container" class and "partial_entry" class
-                reviews = driver.find_elements(By.CSS_SELECTOR, ".review-container .partial_entry")[:num_reviews]
+                    # Get the cuisine types using class name
+                    cuisine_types = driver.find_elements(By.CLASS_NAME, 'SrqKb')
+                    cuisine_list = [cuisine.text for cuisine in cuisine_types]
+                    print(f"Cuisine Types: {', '.join(cuisine_list)}")
 
-                # Store data in MongoDB
-                restaurant_data = {
-                    'name': restaurant_name,
-                    'foodType': cuisine_list,
-                    'systemComments': [review.text for review in reviews]
-                }
-                collection.insert_one(restaurant_data)
-                
-                print("Data added to MongoDB.")
+                    # Find all reviews in the "review-container" class and "partial_entry" class
+                    reviews = driver.find_elements(By.CSS_SELECTOR, ".review-container .partial_entry")[:num_reviews]
+                    
+
+                    restaurant_data = {
+                        'name': restaurant_name,
+                        'foodType': cuisine_list,
+                        'systemComments': [review.text for review in reviews],
+                        
+                    }
+                    collection.insert_one(restaurant_data)
+                    
+
+                    print("Data added to MongoDB.")
+
+                    comments = collection.find_one({"name": restaurant_name})
+                    print(comments)
+
+                    if comments:
+                         system_comments = comments.get("systemComments", [])
+        
+                    if system_comments:
+                             # Calculate the rating based on sentiment analysis
+                            rating = restaurant_review_rating(system_comments)
+                            print(rating)
+
+                    #rating=restaurant_review_rating(comments.systemComments)
+
+                    collection.update_one({"name":restaurant_name},{ "$set": {"systemRating":rating}})
+
+                    restaurant_data = {
+                        'name': restaurant_name,
+                        'foodType': cuisine_list,
+                        'systemComments': [review.text for review in reviews],
+                        'systemRating':rating,
+                        
+                    }
+                    # Store data in MongoDB
+                    
 
             else:
                 print("URL not found in the onclick attribute.")
@@ -1005,4 +1054,6 @@ def get_reviews_and_info(keyword, chromedriver_path, num_reviews=10):
     finally:
         driver.quit()
         client.close()  # Close MongoDB connection
-    return restaurant_data
+
+    response_data = RestaurantResponse(**restaurant_data)
+    return (response_data)
