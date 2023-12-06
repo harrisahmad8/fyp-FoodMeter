@@ -35,8 +35,15 @@ router.get('/users',auth,userController.AllUsers);
 
 router.get('/restaurant',auth,restaurantController.getAll);
 
+router.get('/restaurants/:name',auth,restaurantController.getByName);
+
+
 //restaurant by id
 router.get('/restaurant/:id',auth,restaurantController.getById);
+
+
+
+
 
 //featured restaurants
 
@@ -50,7 +57,7 @@ router.get('/booking/:id',auth,bookingController.getByUserId);
 router.post('/comment',auth,commentController.create);
 
 router.get('/comment/:id',auth,commentController.getByRestaurantId)
-router.get('/restaurant/:name',auth,restaurantController.getByName)
+router.get('/restaurants/:name',auth,restaurantController.getByName)
 
 
 

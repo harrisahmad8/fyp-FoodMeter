@@ -1,7 +1,7 @@
 const mongoose= require('mongoose')
 const {Schema}=mongoose;
 const restaurantSchema=new Schema({ 
-    name: { type: String, required: true },
+  name: { type: String, required: true },
   logoPath: { type: String },
   userRating: { type: Number},
   foodType: { type: String },

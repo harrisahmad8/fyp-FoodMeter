@@ -114,7 +114,7 @@ export const featuredRestaurant= async()=>{
 export const restaurantName=async(name) =>{
   let response;
   try {
-    response= await api.get(`${baseURL}/restaurant/${name}`,
+    response= await api.get(`${baseURL}/restaurants/${name}`,
     {
       withCredentials:true,
     }

@@ -43,6 +43,24 @@ const restaurantController = {
     }
   },
 
+  async getByName(req, res, next) {
+  
+    let restaurant;
+  
+    const {name} = req.params;
+    console.log(name);
+    try {
+      restaurant = await Restaurant.findOne({ name: name });
+    } catch (error) {
+      return next(error);
+    }
+  
+    const restaurantDto = new RestaurantDto(restaurant);
+    
+  
+    return res.status(200).json({ restaurant: restaurantDto });
+  },
+
 
   async getById(req, res, next) {
     const getByIdSchema = Joi.object({
@@ -70,22 +88,7 @@ const restaurantController = {
     return res.status(200).json({ restaurant: restaurantDto });
   },
 
-async getByName(req, res, next) {
-  
-  let restaurant;
 
-  const { name} = req.params;
-
-  try {
-    restaurant = await Restaurant.findOne({ "name": name });
-  } catch (error) {
-    return next(error);
-  }
-
-  const restaurantDto = new RestaurantDto(restaurant);
-
-  return res.status(200).json({ restaurant: restaurantDto });
-},
 };
 
 

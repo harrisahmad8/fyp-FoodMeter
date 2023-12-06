@@ -3,23 +3,25 @@ import { useSelector } from 'react-redux';
 import { Navbar } from '../Components/Navbar';
 import { Footer } from '../Components/Footer';
 import styles from '../CSS/restaurant.module.css';
-import StripeCheckout from 'react-stripe-checkout';
+
 import { restaurantName } from '../api/internal';
 
 export const RestaurantDashboard = () => {
-  const Name = useSelector((state) => state.user.name);
+  const name = useSelector((state) => state.user.name);
+  console.log(name)
+  
   const [restaurantInfo, SetRestaurantInfo] = useState(null);
 
 
   useEffect(() => {
     (async function fetchData() {
-      const getUser = await restaurantName(Name);
+      const getUser = await restaurantName(name);
       if (getUser.status === 200) {
         SetRestaurantInfo(getUser.data.restaurant);
         console.log(restaurantInfo)
       }
     })();
-  }, [Name]);
+  }, []);
   
 
   if (!restaurantInfo) {
