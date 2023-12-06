@@ -127,10 +127,18 @@ html, body {
 /* Grid styles for large screens */
 .grid {
   padding-top: 5%;
-  display: grid;
+  align-items: center;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(3, minmax(0, 1fr));
   gap: 20px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color:whitesmoke;
+  margin:0 auto;
+  width: 70%;
+  height: 70%;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Heading styles for medium screens */
@@ -145,17 +153,21 @@ html, body {
 
 /* Card styles for large screens */
 .card {
-  background-color: #ffffff;
+  background-color: transparent;
+  width: 80%;
+  height: 80%;
   border-radius: 8px;
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  margin-bottom: 20px;
   border: 1px solid black;
-  margin: 10px;
+  margin:0 auto
+  
 }
 
 .cardImage {
   width: 30%;
-  height: auto;
+  height: 100%;
   border-radius: 4px;
 }
 
@@ -166,6 +178,8 @@ html, body {
 .cardTitle {
   font-size: 18px;
   font-weight: bold;
+  color:#1a1a1a;
+  align-self: first baseline;
 }
 
 .cardText {

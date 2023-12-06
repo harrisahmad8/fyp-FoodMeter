@@ -18,6 +18,7 @@ import { useAutoLogin } from "./Components/hooks/useAutoLogin";
 import { Loader } from "./Components/Loader/Loader";
 import {Dashboard} from "./Admin/dashboard"
 import { Admin } from "./Admin/Admin";
+import { RestaurantDashboard } from "./Restaurant/restaurantDashboard";
 
 
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/NewBooking" exact element={<Protected isAuth={isAuth}><Booking/> </Protected>}/>
           <Route path="/ReviewPortal" exact element={<Protected isAuth={isAuth}><ReviewPortal/></Protected>}/>
           <Route path="/admin/*" exact element={<Protected isAuth={isAuth}><Admin/></Protected>}/>
+          <Route path="/restaurantDashboard" exact element={<RestaurantDashboard/>}/>
           <Route path="*" element={<Error/>}/>
       </Routes>
         
