@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import { Navbar } from '../Components/Navbar';
 import { Footer } from '../Components/Footer';
 import styles from '../CSS/home.module.css';
-import img from '../images/256_subway.jpg';
-import Img from '../images/McDonalds-Logo.png';
-import imag from '../images/hardees4024.jpg';
 import { featuredRestaurant } from '../api/internal';
+import { useNavigate } from 'react-router-dom';
 
 import { useRef } from 'react';
 
 export const HomePage = () => {
+  const navigate=useNavigate();
   const ref = useRef(null);
   const [featureRestaurant, setFeatureRestaurant] = useState([]);
 
@@ -26,6 +25,18 @@ export const HomePage = () => {
 
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  const renderStars = (rating) => {
+    const numberOfStars = Math.min(5, Math.ceil(rating)); // Ensure a maximum of 5 stars
+    const filledStars = Array(numberOfStars).fill('★').join('');
+    const emptyStars = Array(5 - numberOfStars).fill('☆').join('');
+  
+    return (
+      <span>
+        <span style={{ color: 'gold' }}>{filledStars}</span>
+        <span style={{ color: 'gray' }}>{emptyStars}</span>
+      </span>
+    );
   };
 
   return (
@@ -63,6 +74,8 @@ export const HomePage = () => {
                 <div className={styles.cardContent}>
                   <h4 className={styles.cardTitle}>{restaurant.name}</h4>
                   <p className={styles.cardText}>{restaurant.foodType}</p>
+                  <p className={styles.cardText}>{renderStars(restaurant.userRating)}</p>
+                  <p className={styles.cardText}>{renderStars(restaurant.systemRating)}</p>
                   <Link to="/ReviewPortal" className={styles.cardLink}>
                     Read More
                   </Link>
