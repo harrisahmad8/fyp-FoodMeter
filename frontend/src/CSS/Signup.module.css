@@ -1,18 +1,21 @@
 .signupWrapper {
-    background-color: #9b9f9d;
-    margin: auto;
-    width: 80vw;
+    background-image: url(../images/bgimg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+   
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 80px;
+    
     height: 100%;
-    box-shadow: 10px 10px;
+    
   }
   
   .signupHeader {
-    color: #2c3e50;
+    color: #9cc1e6;
     font-size: 69px;
     font-weight: bold;
     font-style: italic;
@@ -63,5 +66,5 @@
   }
 
   .sp{
-    color: #2c3e50;
+    color: #979fa7;
   }

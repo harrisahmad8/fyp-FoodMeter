@@ -63,7 +63,7 @@ export const SignUp = () => {
         value={values.name}
         onChange={handleChange}
         onBlur={handleBlur}
-        placeholder="Name"
+        placeholder="Name/Restaurant Name"
         error={errors.name && touched.name ? 1 : undefined}
         errormessage={errors.name}
       />
