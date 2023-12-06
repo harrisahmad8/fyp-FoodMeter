@@ -3,6 +3,7 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.1",
+    "@stripe/stripe-js": "^2.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^6.1.0",
     "react-loader-spinner": "^5.4.5",

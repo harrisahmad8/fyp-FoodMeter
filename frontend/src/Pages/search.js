@@ -57,13 +57,22 @@ export const Search = () => {
               </div>
             )}
             {showCard && (
-              <div className={styles.card}>
-                <p>Restaurant: {responseData.name}</p>
-                <p>Rating: {responseData.systemRating.toFixed(2)}</p>
-                <p>food type:{responseData.foodType}</p>
-                <p> System Comments:{responseData.systemComments}</p>
+            <div className={styles.card}>
+              <p className={styles.p1}>Restaurant: {responseData.name}</p>
+              <p className={styles.p1}>Rating: {responseData.systemRating.toFixed(2)}</p>
+              <p className={styles.p1}>Food type: {responseData.foodType}</p>
+              <div className={styles.systemComments}>
+                <h4 className={styles.h4}>System Comments:</h4>
+                {responseData.systemComments.map((comment, index) => (
+                  <div key={index} className={styles.comment}>
+                    <p>{comment}</p>
+                    {index !== responseData.systemComments.length - 1 && <hr className={styles.commentLine} />}
+                  </div>
+              ))}
               </div>
+            </div>
             )}
+
           </div>
         </div>
         <Footer />

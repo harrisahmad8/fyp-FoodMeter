@@ -1,53 +1,92 @@
 .main {
-    background-color: #f4f4f4; /* Light gray background */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .container {
-    margin: 20px;
-    padding: 20px;
-    background-color: #ffffff; /* White background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
-    border-radius: 8px;
-  }
-  
-  .restaurantName {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #333333; /* Dark text color */
-  }
-  
-  .ratingContainer {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-  }
-  
-  .ratingBox,
-  .commentBox {
-    padding: 15px;
-    background-color: #f8f8f8; /* Lighter gray background */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
-    border-radius: 8px;
-  }
-  
-  .commentContainer {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #555555; /* Darker text color */
-  }
-  
-  p {
-    font-size: 16px;
-    color: #777777; /* Gray text color */
-  }
-  
-  /* Add additional styling as needed */
-  
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  margin-top: 120px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+}
+
+.restaurantName {
+  font-style: italic;
+  margin-top: 20px;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.ratingContainer {
+  display: flex;
+}
+
+.ratingBox {
+  flex: 1;
+  width: 250px; /* Adjusted width for longer rectangle */
+  max-width: 100%;
+  padding: 15px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  margin-right: 10px;
+}
+
+.featureButton {
+  width: 250px; /* Adjusted width for longer rectangle */
+  background-color: #0051ff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.featureButton:hover {
+  background-color: rgb(255, 94, 0);
+}
+
+.commentBox {
+  flex: 1;
+  padding: 15px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+}
+
+.commentLine {
+  border: 1px solid #333;
+  margin: 10px 0;
+}
+
+.commentContainer {
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555555;
+}
+
+p {
+  font-size: 16px;
+  color: #777777;
+}

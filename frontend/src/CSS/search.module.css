@@ -21,6 +21,7 @@
 .header {
   align-items: center;
   background-color: white;
+  padding-bottom: 80px;
   margin-top: 40px;
   height: 655px;
   width: 100%;
@@ -87,11 +88,23 @@ input:focus {
 .card {
   width: 70%;
   background-color: #fff;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
-  margin: 20px auto;
+  margin-bottom: 80px; /* Adjust the margin at the bottom */
+  margin: 30px auto;
 }
 
-/* Your existing styles... */
+.h4{
+  color: black;
+  font-size: 25px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.p1{
+  color: black;
+  font-size: 25px;
+  margin-top: 10px;
+}
