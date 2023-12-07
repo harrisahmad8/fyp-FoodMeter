@@ -59,29 +59,33 @@ router.post('/comment',auth,commentController.create);
 
 router.get('/comment/:id',auth,commentController.getByRestaurantId)
 router.get('/restaurants/:name',auth,restaurantController.getByName)
-router.post('/stripe',async(req,res)=>{
+router.post('/stripe', async (req, res) => {
+  try {
     const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [
-          {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: 'Your Product Name',
-              },
-              unit_amount: 1000, // Amount in cents
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Feature Restaurant',
             },
-            quantity: 1,
+            unit_amount: 1000, // Amount in cents (10 dollars)
           },
-        ],
-        mode: 'payment',
-        success_url: 'http://localhost:3000/success',
-        cancel_url: 'http://localhost:3000/cancel',
-      });
-    
-      res.json({ id: session.id });
-}
-)
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: 'http://localhost:3000/success',
+      cancel_url: 'http://localhost:3000/cancel',
+    });
+
+    res.json({ id: session.id });
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 
