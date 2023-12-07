@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../api/internal";
 import { Loader } from "../Components/Loader/Loader";
+import axios from 'axios';
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -28,7 +29,18 @@ export const SignUp = () => {
 
     if (response.status === 201) {
       alert("Sign up successfull! You can now login")
-     
+      if(data.role==="restaurant owner"){
+        axios.get(`http://localhost:8000/rating/${data.name}`)
+      .then(response => {
+        
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+      
+    
+       
       navigate("/login");
       SetIsLoading(false);
     } else if (response.code === "ERR_BAD_REQUEST") {

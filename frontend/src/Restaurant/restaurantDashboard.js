@@ -4,7 +4,8 @@ import { Navbar } from '../Components/Navbar';
 import { Footer } from '../Components/Footer';
 import styles from '../CSS/restaurant.module.css';
 
-import {loadStripe} from '@stripe/stripe-js';
+
+import { useStripe } from '@stripe/react-stripe-js';
 
 import { restaurantName } from '../api/internal';
 
@@ -28,22 +29,24 @@ export const RestaurantDashboard = () => {
     return <p>Loading...</p>; // You can show a loading message while fetching data
   }
 
-  const makePayment = async()=>{
-    const stripe = await loadStripe("pk_test_51OKRTfSA2Gj55gYc8KvlEDTpDR1SlD27YUzMmuHD9xi9QQ9E6qf28qPSkdLtEEqnZgpvSMi7JBwMri9vjRNInCVy005q5fXtCh");
+  const MakePayment = async()=>{
+    const stripe = useStripe();
 
-    const body = {
-
-    }
-
-
-    const result = stripe.redirectToCheckout({
-      
-    });
-
-    if(result.error){
-      console.log(result.error);
-    }
-
+    const handleClick = async () => {
+      const response = await fetch('/stripe', {
+        method: 'POST',
+      });
+      const session = await response.json();
+      console.log(session);
+  
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+  
+      if (result.error) {
+        console.error(result.error.message);
+      }
+}
   }
 
   return (
@@ -62,7 +65,7 @@ export const RestaurantDashboard = () => {
               <h2>User Rating</h2>
               <p>{restaurantInfo.userRating}</p>
             </div>
-            <button className={styles.featureButton} onClick={makePayment}>Feature {restaurantInfo.name}</button>
+            <button className={styles.featureButton} onClick={MakePayment}>Feature {restaurantInfo.name}</button>
           </div>
         </div>
 

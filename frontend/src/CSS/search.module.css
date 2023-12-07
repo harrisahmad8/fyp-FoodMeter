@@ -22,7 +22,7 @@
   align-items: center;
   background-color: white;
   padding-bottom: 80px;
-  margin-top: 40px;
+  margin-top: 45px;
   height: 655px;
   width: 100%;
 }
@@ -107,4 +107,9 @@ input:focus {
   color: black;
   font-size: 25px;
   margin-top: 10px;
+}
+
+.commentLine {
+  border: 1px solid #000; /* You can adjust the color as needed */
+  margin: 10px 0; /* Adjust the margin to control the spacing between comments */
 }

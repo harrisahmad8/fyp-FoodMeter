@@ -997,7 +997,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
     
                        print("Restaurant Data:", restaurant_data)
                        response_data = RestaurantResponse(**restaurant_data)
-                       return (response_data)
+                       return ("")
                 else:
 
                     # Get the cuisine types using class name

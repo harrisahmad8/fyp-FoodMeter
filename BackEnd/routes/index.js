@@ -7,6 +7,7 @@ const restaurantController= require('../controller/restaurantController');
 const bookingController=require('../controller/bookingController');
 const commentController=require('../controller/commentController');
 const userController=require('../controller/userController')
+const stripeController=require('../controller/stripeController')
 const path = require('path');
 const pythonScriptPath = path.join(__dirname, '../controller/searchController.py');
 
@@ -58,6 +59,29 @@ router.post('/comment',auth,commentController.create);
 
 router.get('/comment/:id',auth,commentController.getByRestaurantId)
 router.get('/restaurants/:name',auth,restaurantController.getByName)
+router.post('/stripe',async(req,res)=>{
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: 'Your Product Name',
+              },
+              unit_amount: 1000, // Amount in cents
+            },
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: 'http://localhost:3000/success',
+        cancel_url: 'http://localhost:3000/cancel',
+      });
+    
+      res.json({ id: session.id });
+}
+)
 
 
 
