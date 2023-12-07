@@ -884,24 +884,24 @@ def restaurant_review_rating(reviews):
     total_score = 0.0
 
     for review in reviews:
-        # Analyze the sentiment of the review
+        
         sentiment_scores = sia.polarity_scores(review)
 
-        # Adjust for negation if needed
+        
         adjust_for_negation(sentiment_scores, review)
 
-        # Sum up the compound scores
+        
         total_score += sentiment_scores['compound']
 
-    # Calculate the average score
+    
     average_score = total_score / len(reviews)
 
-    # Map the average score to the 1-5 rating range
+    
     min_score = -1.0
     max_score = 1.0
     scaled_rating = 1 + 4 * (average_score - min_score) / (max_score - min_score)
 
-    # Ensure the rating is within the 1-5 range
+    
     final_rating = max(1, min(5, scaled_rating))
 
     return final_rating
@@ -917,13 +917,13 @@ class RestaurantResponse(BaseModel):
 
 def get_reviews_and_info(keyword:str, num_reviews=10):
     chromedriver_path = 'C:/Users/hp/Desktop/python/chromedriver-win64/chromedriver.exe'
-    # MongoDB connection string
+    
     mongo_uri = "mongodb+srv://chaudhryhamid655:hamid5678@cluster0.orho31g.mongodb.net/FoodMeter?retryWrites=true&w=majority"
     
-    # Connect to MongoDB
+    
     client = pymongo.MongoClient(mongo_uri)
 
-    # Select the database and collection
+    
     db = client.FoodMeter
     collection = db.restaurants
 
@@ -947,14 +947,14 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
         driver.maximize_window()
         driver.get("https://www.tripadvisor.com/")
 
-        # Wait for the search input field to be present
+        
         search_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME, "q"))
         )
         search_input.send_keys(keyword)
         search_input.send_keys(Keys.RETURN)
 
-        # Wait for the first result to be present
+        
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "result-title"))
         )
@@ -970,19 +970,19 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                 full_url = "https://www.tripadvisor.com/" + url
                 print("Full URL:", full_url)
 
-                # Open the extracted URL in a new browser window
+                
                 driver.get(full_url)
 
-                # Wait for the individual restaurant page to load
+                
                 WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.CLASS_NAME, "review-container"))
                 )
 
-                # Get the name of the restaurant using CSS selector
+                
                 restaurant_name = driver.find_element(By.CSS_SELECTOR, 'h1[data-test-target="top-info-header"]').text
                 print(f"Restaurant Name: {restaurant_name}")
 
-                # Check if the restaurant name already exists in the database
+                
                 restaurant_data = collection.find_one({'name': restaurant_name})
 
                 if restaurant_data:
@@ -1000,7 +1000,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                        return ("")
                 else:
 
-                    # Get the cuisine types using class name
+                    
                     cuisine_types = driver.find_elements(By.CLASS_NAME, 'SrqKb')
                     cuisine_list = [cuisine.text for cuisine in cuisine_types]
                     print(f"Cuisine Types: {', '.join(cuisine_list)}")
@@ -1028,7 +1028,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                                 translated_word = dictionary.translate(word)
                                 if word.lower() in dictionary.dictionary:
                                     print(f"Found translation for '{word}': '{translated_word}'")
-                                    word = translated_word  # Update the word with the translated version
+                                    word = translated_word  
                                 translated_words.append(word)
 
                             translated_review = ' '.join(translated_words)
@@ -1071,7 +1071,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                     custom_dict.add_word("Sach", "Truth")
                     custom_dict.add_word("Mazaaq", "Joke")
                     custom_dict.add_word("Hasi", "Laughter")
-                    # Adding more words to the dictionary
+                    
                     custom_dict.add_word("Swadisht", "Delicious")
                     custom_dict.add_word("Nihayat Swaadisht", "Extremely Delicious")
                     custom_dict.add_word("Khaas", "Special")
@@ -1122,7 +1122,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                     custom_dict.add_word("Khushboo", "Fragrance")
                     custom_dict.add_word("Chamak", "Radiance")
 
-                    # Find all reviews in the "review-container" class and "partial_entry" class
+                    
                     reviews = driver.find_elements(By.CSS_SELECTOR, ".review-container .partial_entry")[:num_reviews]
                     
                     
@@ -1147,11 +1147,11 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                          system_comments = comments.get("systemComments", [])
         
                     if system_comments:
-                             # Calculate the rating based on sentiment analysis
+                             
                             rating = restaurant_review_rating(system_comments)
                             print(rating)
 
-                    #rating=restaurant_review_rating(comments.systemComments)
+                    
 
                     collection.update_one({"name":restaurant_name},{ "$set": {"systemRating":rating}})
 
@@ -1162,7 +1162,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                         'systemRating':rating,
                         
                     }
-                    # Store data in MongoDB
+                    
                     
 
             else:
@@ -1175,7 +1175,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
         print(f"An error occurred: {e}")
     finally:
         driver.quit()
-        client.close()  # Close MongoDB connection
+        client.close()  
 
     response_data = RestaurantResponse(**restaurant_data)
     return (response_data)
