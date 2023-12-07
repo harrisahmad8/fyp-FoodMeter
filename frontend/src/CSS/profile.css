@@ -19,6 +19,7 @@
     width: 100%;
     max-width: 600px;
     height: 500px;
+    color:black;
     
     background-color: #6d6d6d;
     border-radius: 80px;
@@ -47,12 +48,14 @@
   .user-profile-name {
     font-size: 24px;
     font-weight: bold;
+    color:black
   }
   
   .user-profile-email,
   .user-profile-phone,
   .user-profile-password {
     margin-bottom: 10px;
+    color: black;
   }
   
   .update-details-button {

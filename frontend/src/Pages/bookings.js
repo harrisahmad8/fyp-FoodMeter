@@ -50,9 +50,9 @@ export const Booking = () => {
             </thead>
             <tbody>
            
-            {bookings.map((booking, index) => (
+            {allBookings.map((booking, index) => (
                 <tr key={index}>
-                  
+                  <td>{booking.restaurantName}</td>
                   <td>{booking.date}</td>
                   <td>{booking.time}</td>
                   <td>{booking.guest}</td>

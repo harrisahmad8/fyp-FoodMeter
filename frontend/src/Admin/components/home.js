@@ -117,11 +117,7 @@ export const Home = () => {
               {restaurantData.map((user, index) => (
                 <tr key={index}>
                   <td>
-                    <img
-                      src={user.logoPath} 
-                      alt={`Logo ${index + 1}`}
-                      style={{ width: "50px", height: "50px" }} // Adjust the size as needed
-                    />
+                    
                   </td>
                   <td>{user.name}</td>
                   <td>{user.userRating}</td>

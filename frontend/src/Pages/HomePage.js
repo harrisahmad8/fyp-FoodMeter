@@ -71,7 +71,8 @@ export const HomePage = () => {
           </div>
           <div ref={ref}></div>
           <h8 className={styles.h8}>Featured Restaurants</h8>
-          <div className={styles.grid}>
+        {!featureRestaurant.length&&(
+            <div className={styles.grid}>
             {featureRestaurant.map((restaurant, index) => (
               <div key={index} className={styles.card}>
                 <img
@@ -91,6 +92,7 @@ export const HomePage = () => {
               </div>
             ))}
           </div>
+        )}
         </div>
         <Footer />
       </div>

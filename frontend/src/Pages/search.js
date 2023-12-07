@@ -75,7 +75,7 @@ export const Search = () => {
 
           </div>
         </div>
-        <Footer />
+        
       </div>
     </>
   );

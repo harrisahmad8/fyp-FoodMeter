@@ -35,11 +35,7 @@ export const Sidebar = ({ openSidebarToggle, OpenSidebar }) => {
             <BsBuilding className="icon" /> Restaurants
           </Link>
         </li>
-        <li className={`sidebar-list-item ${location.pathname === "/admin/statistics" ? "active" : ""}`}>
-          <Link to="/admin/statistics">
-            <BsBarChartFill className="icon" /> Statistics
-          </Link>
-        </li>
+        
       </ul>
     </aside>
   );
