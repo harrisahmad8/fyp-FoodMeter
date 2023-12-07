@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Navbar } from '../Components/Navbar';
 import { Footer } from '../Components/Footer';
 import styles from '../CSS/home.module.css';
 import { featuredRestaurant } from '../api/internal';
-import { useNavigate } from 'react-router-dom';
+
 
 import { useRef } from 'react';
 
@@ -12,6 +12,7 @@ export const HomePage = () => {
   const navigate=useNavigate();
   const ref = useRef(null);
   const [featureRestaurant, setFeatureRestaurant] = useState([]);
+  
 
   useEffect(() => {
     (async function fetchData() {
@@ -20,8 +21,15 @@ export const HomePage = () => {
         setFeatureRestaurant(getUser.data.restaurant);
         console.log(featureRestaurant)
       }
-    })();
+    })()
   }, []);
+  
+
+  const sendDataAndNavigate = (restaurants )=> {
+    console.log('Sending data and navigating:', restaurants);
+    navigate('/ReviewPortal', { state: { passedData: restaurants } });
+  };
+
 
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -76,9 +84,9 @@ export const HomePage = () => {
                   <p className={styles.cardText}>{restaurant.foodType}</p>
                   <p className={styles.cardText}>{renderStars(restaurant.userRating)}</p>
                   <p className={styles.cardText}>{renderStars(restaurant.systemRating)}</p>
-                  <Link to="/ReviewPortal" className={styles.cardLink}>
-                    Read More
-                  </Link>
+                  <button onClick={() => sendDataAndNavigate(restaurant)}>Read More</button>
+                   
+                 
                 </div>
               </div>
             ))}

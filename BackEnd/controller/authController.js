@@ -238,16 +238,13 @@ const authController = {
 
       res.cookie("accessToken", accessToken, {
         maxAge: 1000 * 60 * 60 * 24,
-        httpOnly: true,
-        sameSite: "none", // Set the sameSite option
-    secure: true, 
+        httpOnly: true, 
       });
 
       res.cookie("refreshToken", refreshToken, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
-        sameSite: "none", // Set the sameSite option
-    secure: true, 
+        
       });
     } catch (e) {
       return next(e);

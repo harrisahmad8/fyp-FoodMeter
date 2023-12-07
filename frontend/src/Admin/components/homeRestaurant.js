@@ -18,11 +18,7 @@ export const HomeRestaurant = () => {
 
 
     SetLoading(false);
-
-      
-      
-
-      
+ 
     })();
   }, []);
 

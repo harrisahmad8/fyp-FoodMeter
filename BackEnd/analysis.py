@@ -13,8 +13,11 @@ from selenium.webdriver.chrome.service import Service
 from googletrans import Translator
 import re
 import pymongo
-
+import numpy as np
 from googletrans import Translator
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import load_model
 
 
 app = FastAPI()
@@ -33,10 +36,11 @@ app.add_middleware(
 nltk.download('punkt')
 
 nltk.download('vader_lexicon')
+loaded_model = load_model('D:\\university\\FYP\\fyp-FoodMeter\\BackEnd\\FakeeDetection.h5')
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.tokenize import word_tokenize
-from mongotest import getKeywordCaptions
+
 
 
 sia = SentimentIntensityAnalyzer()
@@ -911,12 +915,39 @@ class RestaurantResponse(BaseModel):
     systemComments: list
     systemRating:float
 
+#Fake reviews detection
+def fakeReviewDetection(text):
+      input_text = text
+      max_len = 100
+      tokenizer = Tokenizer(num_words=max_len)
+      predicted_label = predict_text_label(input_text, loaded_model, tokenizer, max_len)
+      custom_label = "fake" if predicted_label == 0 else "original"
+      print("Predicted Custom Label:", custom_label)
+      return custom_label
+      
+
+def predict_text_label(text, model, tokenizer, max_len):
+    # Tokenize the input text
+    sequences = tokenizer.texts_to_sequences([text])
+
+    # Pad the sequence
+    padded_sequence = pad_sequences(sequences, maxlen=max_len)
+
+    # Make the prediction
+    prediction = model.predict(padded_sequence)
+
+    # Convert the probability to a binary label (0 or 1)
+    predicted_label = np.round(prediction).astype(int)
+
+    return predicted_label
+
+
 
 @app.get("/rating/{keyword}")
 
 
 def get_reviews_and_info(keyword:str, num_reviews=10):
-    chromedriver_path = 'C:/Users/hp/Desktop/python/chromedriver-win64/chromedriver.exe'
+    chromedriver_path = 'C:/Users\chaud\Downloads\chromedriver-win64\chromedriver-win64/chromedriver.exe'
     # MongoDB connection string
     mongo_uri = "mongodb+srv://chaudhryhamid655:hamid5678@cluster0.orho31g.mongodb.net/FoodMeter?retryWrites=true&w=majority"
     
@@ -1071,7 +1102,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                     custom_dict.add_word("Sach", "Truth")
                     custom_dict.add_word("Mazaaq", "Joke")
                     custom_dict.add_word("Hasi", "Laughter")
-                    # Adding more words to the dictionary
+                   
                     custom_dict.add_word("Swadisht", "Delicious")
                     custom_dict.add_word("Nihayat Swaadisht", "Extremely Delicious")
                     custom_dict.add_word("Khaas", "Special")
@@ -1122,8 +1153,16 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                     custom_dict.add_word("Khushboo", "Fragrance")
                     custom_dict.add_word("Chamak", "Radiance")
 
-                    # Find all reviews in the "review-container" class and "partial_entry" class
+                    
                     reviews = driver.find_elements(By.CSS_SELECTOR, ".review-container .partial_entry")[:num_reviews]
+
+                    for review in reviews:
+                         review_text = review.text  # Assuming review may not be a string initially
+                         label=fakeReviewDetection(review_text)
+                         if label=="fake":
+                             print("This review is fake: ",review_text)
+                             reviews.remove(review)
+                               
                     
                     
                     translated_reviews = translate_reviews([review.text for review in reviews], custom_dict)

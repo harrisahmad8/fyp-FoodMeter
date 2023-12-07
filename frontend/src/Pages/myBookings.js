@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useLocation,useNavigate } from "react-router-dom";
+
 import "../CSS/newBooking.css";
 import { Navbar } from "../Components/Navbar";
 import { Footer } from "../Components/Footer";
@@ -16,6 +17,10 @@ export const Mybookings = () => {
   const [restaurant, setRestaurant] = useState("");
 
   const ref = useRef(null);
+  const location = useLocation();
+  const navigate=useNavigate()
+  const restaurantid = location.state?.passedData || 'No data received';
+  console.log(restaurantid);
 
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,12 +35,12 @@ export const Mybookings = () => {
         time,
         guests,
         number,
-        restaurant,
+        restaurantid,
       });
 
       if (response.data === "Booking Done") {
         alert("Booking is done!");
-        // You can also redirect the user to a thank you page or any other appropriate action.
+        navigate("/ReviewPortal")
       }
     } catch (error) {
       console.error("Error:", error);
@@ -111,13 +116,44 @@ export const Mybookings = () => {
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               >
-                <option value="" style={{ color: "black" }}>
+                <option value="time" style={{ color: "black" }}>
                   Select a time
                 </option>
                 <option value="11:00 AM" style={{ color: "black" }}>
                   11:00 AM
                 </option>
-                {/* Add more time options here */}
+                <option value="12:00 PM" style={{ color: "black" }}>
+                  12:00 PM
+                </option>
+                <option value="1:00 PM" style={{ color: "black" }}>
+                  1:00 PM
+                </option>
+                <option value="2:00 PM" style={{ color: "black" }}>
+                  2:00 PM
+                </option><option value="3:00 PM" style={{ color: "black" }}>
+                  3:00 PM
+                </option><option value="4:00 PM" style={{ color: "black" }}>
+                  4:00 PM
+                </option><option value="5:00 PM" style={{ color: "black" }}>
+                  5:00 PM
+                </option><option value="6:00 PM" style={{ color: "black" }}>
+                  6:00 PM
+                </option><option value="7:00 PM" style={{ color: "black" }}>
+                  7:00 PM
+                </option>
+                <option value="8:00 PM" style={{ color: "black" }}>
+                  8:00 PM
+                </option>
+                <option value="8:00 PM" style={{ color: "black" }}>
+                  8:00 PM
+                </option>
+                <option value="9:00 PM" style={{ color: "black" }}>
+                  9:00 PM
+                </option>
+                <option value="10:00 PM" style={{ color: "black" }}>
+                  10:00 PM
+                </option>
+                
               </select>
             </div>
             <div className="form-row">
@@ -130,26 +166,7 @@ export const Mybookings = () => {
                 onChange={(e) => setDate(e.target.value)}
               ></input>
             </div>
-            <div className="form-row">
-              <select
-                id="restaurant"
-                className="input-field"
-                required
-                value={restaurant}
-                onChange={(e) => setRestaurant(e.target.value)}
-              >
-                <option value="" style={{ color: "black" }}>
-                  Select a restaurant
-                </option>
-                <option value="Restaurant A" style={{ color: "black" }}>
-                  Restaurant A
-                </option>
-                <option value="Restaurant B" style={{ color: "black" }}>
-                  Restaurant B
-                </option>
-                {/* Add more restaurant options here */}
-              </select>
-            </div>
+            
             <button className="submit-button" onClick={handleSubmit}>
               Book
             </button>

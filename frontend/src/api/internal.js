@@ -127,5 +127,30 @@ export const restaurantName=async(name) =>{
   return response
 }
 
+export const newBooking=async(data)=>{
+    let response;
+  
+    try {
+      response = await api.post(`${baseURL}/booking`, data);
+    } catch (error) {
+      return error;
+    }
+  
+    return response;
+  };
+
+export const bookings=async(id)=>{
+  let response;
+  try {
+    response = await api.get(`${baseURL}/booking/${id}`);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+
+
 
 

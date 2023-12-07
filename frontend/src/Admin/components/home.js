@@ -47,7 +47,7 @@ export const Home = () => {
         <h3>DASHBOARD</h3>
       </div>
       {loading ? (
-          <Loader text={" please wait ..."}/> // Display a loading spinner while data is being fetched
+          <Loader text={" please wait ..."}/> 
         ):(<p></p>)}
 
       <div className="main-cards">

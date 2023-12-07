@@ -9,7 +9,8 @@ const bookingController = {
     const userBookingSchema = Joi.object({
       name: Joi.string().min(3).max(30).required(),
       email: Joi.string().email().required(),
-      restaurant: Joi.string().required(),
+      user: Joi.string().regex(mongodbIdPattern).required(),
+      restaurant: Joi.string().regex(mongodbIdPattern).required(),
       number: Joi.string()
         .length(11)
         .pattern(/^[0-9]+$/)
@@ -23,6 +24,8 @@ const bookingController = {
     if (error) {
       return next(error);
     }
+    
+
     const { name, email, user, restaurant,number,guest, date, time, } = req.body;
 
     try {
@@ -34,6 +37,7 @@ const bookingController = {
         date,
         time,
         restaurant,
+        user
       });
 
       await newBooking.save();
@@ -60,6 +64,8 @@ const bookingController = {
 
     try {
       bookings = await Booking.find({ user: id }).populate("restaurant");
+      
+      
     } catch (error) {
       return next(error);
     }

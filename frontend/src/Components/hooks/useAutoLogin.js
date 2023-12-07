@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { setUser } from "../../store/userSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+const baseURL='http://localhost:5000'
 
 export const  useAutoLogin=()=> {
   const [loading, setLoading] = useState(true);
@@ -12,7 +13,7 @@ export const  useAutoLogin=()=> {
     (async function autoLoginApiCall() {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_INTERNAL_API_PATH}/refresh`,
+          `${baseURL}/refresh`,
           {
             withCredentials: true,
           }

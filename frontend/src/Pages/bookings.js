@@ -1,52 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "../Components/Navbar";
 import { Footer } from "../Components/Footer";
+import { useSelector } from "react-redux";
+import { bookings } from "../api/internal";
+import { Loader } from "../Components/Loader/Loader";
 import "../CSS/bookings.css";
 
+
 export const Booking = () => {
-  const [bookings, setBookings] = useState([]);
+  const [allBookings, setAllBookings] = useState([]);
+  const id= useSelector((state) => state.user._id);
+  const[loading,SetLoading]=useState(true)
 
   useEffect(() => {
-    // Fetch bookings data from the backend API
-    fetchBookings()
-      .then((data) => setBookings(data))
-      .catch((error) => console.log(error));
+    ( async function fetchData(){
+      const getUser = await bookings(id);
+      if (getUser.status === 200) {
+        setAllBookings(getUser.data.data);
+        console.log(allBookings)
+      }
+      SetLoading(false)
+
+    })();
   }, []);
 
-  const fetchBookings = async () => {
-    try {
-      // Fetch bookings data from the backend API endpoint
-      const response = await fetch("api/bookings");
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw new Error("Failed to fetch bookings");
-    }
-  };
+  
 
-  // Dummy data for bookings
-  const dummyBookings = [
-    {
-      id: 1,
-      restaurant: "Restaurant A",
-      date: "2023-06-01",
-      time: "19:00",
-      guests: 2,
-      contactNumber: "123-456-7890",
-    },
-    {
-      id: 2,
-      restaurant: "Restaurant B",
-      date: "2023-06-02",
-      time: "18:30",
-      guests: 4,
-      contactNumber: "987-654-3210",
-    },
-    // Add more dummy bookings here if needed
-  ];
-
-  // Use dummy bookings if actual bookings are empty
-  const bookingsToRender = bookings.length > 0 ? bookings : dummyBookings;
 
   return (
 
@@ -56,6 +35,9 @@ export const Booking = () => {
       <div className="content">
         <h2 className="heading">My Bookings</h2>
         <div className="table-container">
+        {loading ? (
+          <Loader text={" bookings..."}/> 
+        ) : allBookings.length > 0 ? ( 
           <table className="table">
             <thead>
               <tr>
@@ -67,17 +49,28 @@ export const Booking = () => {
               </tr>
             </thead>
             <tbody>
-              {bookingsToRender.map((booking) => (
-                <tr key={booking.id}>
-                  <td>{booking.restaurant}</td>
+           
+            {bookings.map((booking, index) => (
+                <tr key={index}>
+                  
                   <td>{booking.date}</td>
                   <td>{booking.time}</td>
-                  <td>{booking.guests}</td>
-                  <td>{booking.contactNumber}</td>
+                  <td>{booking.guest}</td>
+                  <td>{booking.number}</td>
                 </tr>
               ))}
+        
+
+        
             </tbody>
           </table>
+        
+        ):(
+         <p>
+          No bookings 
+         </p>
+        )
+        }
         </div>
       </div>
       <Footer />

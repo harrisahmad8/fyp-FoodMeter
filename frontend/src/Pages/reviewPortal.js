@@ -1,27 +1,23 @@
-// ReviewPortal.js
-
-import React, { useState } from 'react';
+import React, { useDebugValue, useState } from 'react';
 import { Navbar } from '../Components/Navbar';
 import { Footer } from '../Components/Footer';
 import styles from '../CSS/review.module.css';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const ReviewPortal = () => {
-  const [restaurantData, setRestaurantData] = useState({
-    name: 'Sample Restaurant',
-    foodMeterRating: 4.5,
-    userRating: 4.0,
-    scrapedComments: ['Scraped Comment 1', 'Scraped Comment 2'],
-    userComments: [],
-  });
+  const location = useLocation();
+  const navigate=useNavigate()
+  const restaurantData = location.state?.passedData || 'No data received';
+  console.log(restaurantData);
 
-  const addUserComment = (comment) => {
-    setRestaurantData((prevData) => ({
-      ...prevData,
-      userComments: [...prevData.userComments, comment],
-    }));
-    // You may want to send the comment to the database here
+  const sendData = (id )=> {
+   navigate('/ReviewPortal', { state: { passedData: id } });
   };
 
+  const addUserComment=()=>{
+
+  }
   return (
     <div className={styles.container}>
       <Navbar />
@@ -47,8 +43,10 @@ export const ReviewPortal = () => {
           <div className={styles.commentsSection}>
             <div className={styles.commentsBox}>
               <h2>Scraped Comments</h2>
+             
               <ul>
-                {restaurantData.scrapedComments.map((comment, index) => (
+                
+                {restaurantData.systemComments?.map((comment, index) => (
                   <li key={index}>{comment}</li>
                 ))}
               </ul>
@@ -56,7 +54,7 @@ export const ReviewPortal = () => {
             <div className={styles.commentsBox}>
               <h2>User Comments</h2>
               <ul>
-                {restaurantData.userComments.map((comment, index) => (
+                {restaurantData.userComments?.map((comment, index) => (
                   <li key={index}>{comment}</li>
                 ))}
               </ul>
@@ -72,6 +70,7 @@ export const ReviewPortal = () => {
                 <button type="submit">Add Comment</button>
               </form>
             </div>
+            <div> <button onClick={() => sendData(restaurantData._id)}>Reserve a Table</button></div>
           </div>
         </div>
         

@@ -1,6 +1,7 @@
 class BookingDTO{
     constructor(booking){
-        this.restaurant=booking.restaurant.name;
+        this.restaurantName=booking.restaurant.name;
+        this.userName=booking.user.name
         this.name=booking.name;
         this.date=booking.date;
         this.time=booking.time;
