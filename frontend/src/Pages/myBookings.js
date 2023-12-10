@@ -6,41 +6,49 @@ import { Navbar } from "../Components/Navbar";
 import { Footer } from "../Components/Footer";
 import { useRef } from "react";
 import axios from 'axios';
+import { newBooking } from "../api/internal";
+import { useSelector } from "react-redux";
 
 export const Mybookings = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [guests, setGuests] = useState("");
+  const [guest, setGuest] = useState("");
   const [number, setNumber] = useState("");
-  const [restaurant, setRestaurant] = useState("");
+ 
+  const user = useSelector((state) => state.user._id);
+  console.log("usedid",user)
 
   const ref = useRef(null);
   const location = useLocation();
+  console.log("id recieved",location)
   const navigate=useNavigate()
-  const restaurantid = location.state?.passedData || 'No data received';
-  console.log(restaurantid);
+  const restaurant = location.state?.restaurantId || 'No data received';
+  console.log(restaurant);
 
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
+  
 
   const handleSubmit = async () => {
+    const data={
+      name,
+      email,
+      date,
+      time,
+      guest,
+      number,
+      restaurant,
+      user
+    }
     try {
-      const response = await axios.post('http://localhost:5000/booking', {
-        name,
-        email,
-        date,
-        time,
-        guests,
-        number,
-        restaurantid,
-      });
+      const response = await newBooking(data)
 
-      if (response.data === "Booking Done") {
+      if (response.status === 201) {
         alert("Booking is done!");
-        navigate("/ReviewPortal")
+        navigate("/ReviewPortal",{state:{restaurant:restaurant}})
       }
     } catch (error) {
       console.error("Error:", error);
@@ -104,12 +112,13 @@ export const Mybookings = () => {
                 placeholder="Number of Guests"
                 maxLength={140}
                 className="input-field"
-                value={guests}
-                onChange={(e) => setGuests(e.target.value)}
+                value={guest}
+                onChange={(e) => setGuest(e.target.value)}
               />
             </div>
             <div className="form-row">
               <select
+              type="time"
                 id="time"
                 className="input-field"
                 required

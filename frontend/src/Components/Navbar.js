@@ -13,7 +13,6 @@ export const Navbar = () => {
     { name: "Home", to: "/" },
     { name: "Favorites", to: "/favorites" },
     { name: "Bookings", to: "/NewBooking" },
-    { name: "New Booking", to: "/booking" },
     { name: "Profile", to: "/profile" },
   ];
   const handleLogout = async () => {

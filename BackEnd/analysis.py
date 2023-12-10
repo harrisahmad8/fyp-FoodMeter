@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -41,6 +42,7 @@ loaded_model = load_model('D:\\repository\\fyp-FoodMeter\\Backend\\FakeeDetectio
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.tokenize import word_tokenize
+
 
 
 
@@ -978,6 +980,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
     try:
         driver.maximize_window()
         driver.get("https://www.tripadvisor.com/")
+        
 
         # Wait for the search input field to be present
         search_input = WebDriverWait(driver, 10).until(
