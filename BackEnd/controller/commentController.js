@@ -14,6 +14,7 @@ const commentController = {
 
     const { error } = createCommentSchema.validate(req.body);
     if (error) {
+      console.log(error)
       return next(error);
     }
     const { content, user, restaurant } = req.body;

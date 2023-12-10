@@ -7,6 +7,7 @@ const userSchema=new Schema({
     password:{type:String,required:true},
     role:{type:String,required:true}, 
     number:{type:Number,required:true},
+    photo:{type:String},
 },
 {timestamps:true}
  );

@@ -59,6 +59,8 @@ router.post('/comment',auth,commentController.create);
 
 router.get('/comment/:id',auth,commentController.getByRestaurantId)
 router.get('/restaurants/:name',auth,restaurantController.getByName)
+router.put('/updateProfile/:id',auth,userController.updateProfile)
+router.get('/user/:id',auth,userController.getUserId)
 router.post('/stripe', async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({

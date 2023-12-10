@@ -30,6 +30,7 @@ html, body {
   background-size: cover;
   background-repeat: no-repeat;
   margin-top: 40px;
+  padding:20px;
   height: 680px;
   width: 100%;
 }
@@ -161,7 +162,9 @@ html, body {
   padding: 20px;
   margin-bottom: 20px;
   border: 1px solid black;
-  margin:0 auto
+  margin:0 auto;
+  margin-top: 10px;
+  
   
 }
 

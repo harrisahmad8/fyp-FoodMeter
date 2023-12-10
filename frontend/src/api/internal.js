@@ -127,6 +127,22 @@ export const restaurantName=async(name) =>{
   return response
 }
 
+export const restaurantById=async(id) =>{
+  let response;
+  try {
+    response= await api.get(`${baseURL}/restaurant/${id}`,
+    {
+      withCredentials:true,
+    }
+    )
+    
+  } catch (error) {
+    return (error)
+    
+  }
+  return response
+}
+
 export const newBooking=async(data)=>{
     let response;
   
@@ -149,7 +165,48 @@ export const bookings=async(id)=>{
 
   return response;
 };
+export const getComments=async(id)=>{
+  let response;
+  try {
+    response = await api.get(`${baseURL}/comment/${id}`);
+  } catch (error) {
+    return error;
+  }
 
+  return response;
+};
+
+export const postComment = async (data) => {
+  let response;
+
+  try {
+    response = await api.post("/comment", data);
+  } catch (error) {
+    return error;
+  }
+  return response;
+};
+
+export const UpdateProfile=async(data,id)=>{
+  let response;
+
+  try {
+    response = await api.put(`${baseURL}/updateProfile/${id}`, data);
+  } catch (error) {
+    return error;
+  }
+  return response;
+};
+export const getUser=async(id)=>{
+  let response;
+
+  try {
+    response = await api.get(`${baseURL}/user/${id}`);
+  } catch (error) {
+    return error;
+  }
+  return response;
+};
 
 
 

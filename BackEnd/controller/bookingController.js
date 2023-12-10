@@ -19,14 +19,17 @@ const bookingController = {
       time: Joi.string().required(),
       guest:Joi.number()
     });
-
+   console.log("before validation")
     const { error } = userBookingSchema.validate(req.body);
     if (error) {
+      console.log(error)
       return next(error);
     }
+    console.log("After validation")
     
 
     const { name, email, user, restaurant,number,guest, date, time, } = req.body;
+    console.log("booking")
 
     try {
       const newBooking = new Booking({

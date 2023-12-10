@@ -84,6 +84,7 @@ const restaurantController = {
     }
 
     const restaurantDto = new RestaurantDto(restaurant);
+    console.log("byidR")
 
     return res.status(200).json({ restaurant: restaurantDto });
   },

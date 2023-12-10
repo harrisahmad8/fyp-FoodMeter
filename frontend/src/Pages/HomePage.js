@@ -4,33 +4,33 @@ import { Navbar } from '../Components/Navbar';
 import { Footer } from '../Components/Footer';
 import styles from '../CSS/home.module.css';
 import { featuredRestaurant } from '../api/internal';
+import { Loader } from '../Components/Loader/Loader';
+import { RestaurantCard } from '../Components/restaurantCard';
 
 
 import { useRef } from 'react';
 
-export const HomePage = () => {
+export const HomePage = (props) => {
   const navigate=useNavigate();
   const ref = useRef(null);
-  const [featureRestaurant, setFeatureRestaurant] = useState([]);
-  
+  const [featureRestaurant, SetFeatureRestaurant] = useState([]);
+  const[loading,SetLoading]=useState(true)
 
   useEffect(() => {
-    (async function fetchData() {
+     (async function fetchData() {
+      
       const getUser = await featuredRestaurant();
       if (getUser.status === 200) {
-        setFeatureRestaurant(getUser.data.restaurant);
+        SetFeatureRestaurant(getUser.data.restaurant);
+        console.log("Feature Restaurant Data:", getUser.data.restaurant);
         console.log(featureRestaurant)
       }
-    })()
+    })();
+  
+    
+    SetLoading(false)
   }, []);
   
-
-  const sendDataAndNavigate = (restaurants )=> {
-    console.log('Sending data and navigating:', restaurants);
-    navigate('/ReviewPortal', { state: { passedData: restaurants } });
-  };
-
-
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -40,6 +40,7 @@ export const HomePage = () => {
     const emptyStars = Array(5 - numberOfStars).fill('☆').join('');
   
     return (
+      
       <span>
         <span style={{ color: 'gold' }}>{filledStars}</span>
         <span style={{ color: 'gray' }}>{emptyStars}</span>
@@ -48,8 +49,8 @@ export const HomePage = () => {
   };
 
   return (
-    <>
-      <div className={styles.container}></div>
+    
+      
       <div className={styles.layout}>
         <Navbar />
         <div className={styles.main}>
@@ -71,31 +72,20 @@ export const HomePage = () => {
           </div>
           <div ref={ref}></div>
           <h8 className={styles.h8}>Featured Restaurants</h8>
-        {!featureRestaurant.length&&(
-            <div className={styles.grid}>
-            {featureRestaurant.map((restaurant, index) => (
-              <div key={index} className={styles.card}>
-                <img
-                  src={restaurant.logoPath}
-                  alt="Restaurant"
-                  className={styles.cardImage}
-                />
-                <div className={styles.cardContent}>
-                  <h4 className={styles.cardTitle}>{restaurant.name}</h4>
-                  <p className={styles.cardText}>{restaurant.foodType}</p>
-                  <p className={styles.cardText}>{renderStars(restaurant.userRating)}</p>
-                  <p className={styles.cardText}>{renderStars(restaurant.systemRating)}</p>
-                  <button onClick={() => sendDataAndNavigate(restaurant)}>Read More</button>
-                   
-                 
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+          <hr  style={{ width: '80%', backgroundColor: 'black', height: '2px', margin: '20px auto', border: 'none' }} />
+        
+        {featureRestaurant.length > 0 ? (
+            <RestaurantCard data={featureRestaurant}/>
+           
+        ) :(
+          <p>No featured restaurant available</p>
+          )}
+          
         </div>
+        
+        <hr/>
         <Footer />
       </div>
-    </>
+    
   );
 };
