@@ -31,7 +31,7 @@ def getKeywordCaptions():
             # Check if the keyword is in the post caption
             if keyword.lower() in post.caption.lower():
                 caption = post.caption if post.caption else ''
-                captions_string += f"Username: {username}\nPost URL: {post.url}\nCaption: {caption}\n\n"
+                captions_string += f"Username: {username}\nCaption: {caption}\n\n"
 
             # Add a 2-second delay between posts
             time.sleep(2)
