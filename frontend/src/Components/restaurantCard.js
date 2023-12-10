@@ -7,7 +7,7 @@ export const RestaurantCard = ({data}) => {
     return null; // or handle the error in a way that makes sense for your application
   }
     return (
-      <div className="p-5 items-center flex justify-center grid-column-2  grid-rows-3 gap-20 shadow-md bg-whitesmoke m-auto w-full h-full rounded-2xl
+      <div className="p-5 items-center flex justify-center   grid-rows-3 gap-20 shadow-md bg-whitesmoke m-auto w-full h-full rounded-2xl
       ">
         {data.map((data, index) => (
         <div key={index}>
