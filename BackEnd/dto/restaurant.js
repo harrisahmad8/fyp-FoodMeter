@@ -3,11 +3,12 @@ class RestaurantDTO{
         this._id = restaurant._id;
         this.name = restaurant.name;
         this.logoPath = restaurant.logoPath;
-        this.userRating = restaurant.userRating;
         this.foodType = restaurant.foodType;
-        this.featured = restaurant.featured ;
-        this.userComments = restaurant.userComments || []; 
-        this.systemComments = restaurant.systemComments || []; 
+        this.featured = restaurant.featured ; 
+        this.systemComments = restaurant.systemComments.map(comment => ({
+            content: comment.content,
+            rating: comment.rating
+          }));
         this.systemRating = restaurant.systemRating || null;
     }
 }

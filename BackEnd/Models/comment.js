@@ -4,6 +4,7 @@ const commentSchema = new Schema(
   {
     content: { type: String, required: true },
     restaurant: { type: mongoose.SchemaTypes.ObjectId, ref: 'Restaurant' },
+    rating:{type:Number},
     user: { type: mongoose.SchemaTypes.ObjectId, ref: 'User' },
   },
   { timestamps: true }

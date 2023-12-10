@@ -4,6 +4,7 @@ class CommentDTO{
         this.createdAt = comment.createdAt;
         this.content=comment.content;
         this.user=comment.user.name;
+        this.rating=comment.rating;
 
     }
 }

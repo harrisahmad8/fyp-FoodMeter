@@ -1,13 +1,16 @@
 const mongoose= require('mongoose')
 const {Schema}=mongoose;
+const CommentSchema = new Schema({
+  content: { type: String, required: true },
+  rating: { type: Number, required: true },
+  
+});
 const restaurantSchema=new Schema({ 
   name: { type: String, required: true },
   logoPath: { type: String },
-  userRating: { type: Number},
   foodType: { type: String },
   featured: { type: Boolean },
-  userComments: [{ type: String }], 
-  systemComments: [{ type: String }], 
+  systemComments: [CommentSchema],
   systemRating: { type: Number }
 
 },

@@ -885,9 +885,18 @@ def adjust_for_negation(sentiments, text):
                     sentiments['compound'] *= -1  
                     break
                 j += 1
+def analyze_review(review):
+    sentiment_scores = sia.polarity_scores(review)
+    adjust_for_negation(sentiment_scores, review)
+    return {
+        'content': review,
+        'rating': sentiment_scores['compound']
+    }
 
 def restaurant_review_rating(reviews):
     total_score = 0.0
+
+    analyzed_reviews = []
 
     for review in reviews:
         # Analyze the sentiment of the review
@@ -896,8 +905,15 @@ def restaurant_review_rating(reviews):
         # Adjust for negation if needed
         adjust_for_negation(sentiment_scores, review)
 
-        # Sum up the compound scores
-        total_score += sentiment_scores['compound']
+        # Map the sentiment score to the 1-5 rating range
+        
+        min_score = -1.0
+        max_score = 1.0
+        review_rating = 1 + 4 * (sentiment_scores - min_score) / (max_score - min_score)
+        final_review_rating= final_rating = max(1, min(5, review_rating))
+
+        # Append the analyzed review to the list
+        analyzed_reviews.append({'content': review, 'rating': sentiment_scores['compound']})
 
     # Calculate the average score
     average_score = total_score / len(reviews)
@@ -910,12 +926,14 @@ def restaurant_review_rating(reviews):
     # Ensure the rating is within the 1-5 range
     final_rating = max(1, min(5, scaled_rating))
 
-    return final_rating
+    return final_rating, analyzed_reviews
+
 class RestaurantResponse(BaseModel):
     name: str
     foodType: list
     systemComments: list
     systemRating:float
+    logopath:Optional[str] = None 
 
 #Fake reviews detection
 def fakeReviewDetection(text):
@@ -1011,6 +1029,9 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                 WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.CLASS_NAME, "review-container"))
                 )
+                restaurantXpath='//*[@id="taplc_resp_rr_photo_mosaic_0"]/div/div[1]/div[1]/div[2]/div[2]/div[1]/div/img'
+                restaurant_image = driver.find_element(By.XPATH, restaurantXpath).get_attribute('src')
+                print(f"Restaurant Image URL: {restaurant_image}")
 
                 # Get the name of the restaurant using CSS selector
                 restaurant_name = driver.find_element(By.CSS_SELECTOR, 'h1[data-test-target="top-info-header"]').text
@@ -1025,6 +1046,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                         'foodType': cuisine_list,
                         'systemComments': [review.text for review in reviews],
                         'systemRating':rating,
+                        'logoPath':restaurant_image
                        }     
                     
                        print(f"Restaurant '{restaurant_name}' already exists in the database. Skipping.")
@@ -1175,6 +1197,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                         'name': restaurant_name,
                         'foodType': cuisine_list,
                         'systemComments': translated_reviews,
+                        'logoPath':restaurant_image
                         
                     }
                     collection.insert_one(restaurant_data)
@@ -1190,18 +1213,19 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
         
                     if system_comments:
                              # Calculate the rating based on sentiment analysis
-                            rating = restaurant_review_rating(system_comments)
+                            rating,analyzed_reviews = restaurant_review_rating(system_comments)
                             print(rating)
 
                     #rating=restaurant_review_rating(comments.systemComments)
 
-                    collection.update_one({"name":restaurant_name},{ "$set": {"systemRating":rating}})
+                    collection.update_one({"name":restaurant_name},{ "$set": {"systemRating":rating,"systemComments":analyzed_reviews}})
 
                     restaurant_data = {
                         'name': restaurant_name,
                         'foodType': cuisine_list,
-                        'systemComments': translated_reviews,
+                        'systemComments': analyzed_reviews,
                         'systemRating':rating,
+                        'logoPath':restaurant_image
                         
                     }
                     # Store data in MongoDB
