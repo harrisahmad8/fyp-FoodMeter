@@ -36,6 +36,7 @@ export const Search = () => {
         <Navbar />
         <div className={styles.main}>
           <div className={styles.header}>
+
             <h1 className={styles.h1}>Search for a Restaurant</h1>
             <div className={styles.searchBarContainer}>
               <div className={styles.inputContainer}>
