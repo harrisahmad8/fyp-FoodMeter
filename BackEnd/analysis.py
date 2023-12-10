@@ -18,6 +18,7 @@ from googletrans import Translator
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
+from insta.py import getKeywordCaptions
 
 
 app = FastAPI()
@@ -36,7 +37,7 @@ app.add_middleware(
 nltk.download('punkt')
 
 nltk.download('vader_lexicon')
-loaded_model = load_model('D:\\university\\FYP\\fyp-FoodMeter\\BackEnd\\FakeeDetection.h5')
+loaded_model = load_model('D:\\repository\\fyp-FoodMeter\\Backend\\FakeeDetection.h5')
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.tokenize import word_tokenize
@@ -947,7 +948,7 @@ def predict_text_label(text, model, tokenizer, max_len):
 
 
 def get_reviews_and_info(keyword:str, num_reviews=10):
-    chromedriver_path = 'C:/Users\chaud\Downloads\chromedriver-win64\chromedriver-win64/chromedriver.exe'
+    chromedriver_path = 'C:/Users/hp/Desktop/python/chromedriver-win64/chromedriver.exe'
     # MongoDB connection string
     mongo_uri = "mongodb+srv://chaudhryhamid655:hamid5678@cluster0.orho31g.mongodb.net/FoodMeter?retryWrites=true&w=majority"
     
