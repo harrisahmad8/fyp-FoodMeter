@@ -4,6 +4,7 @@ import { Footer } from '../Components/Footer';
 import styles from '../CSS/search.module.css';
 import { useRef } from 'react';
 import axios from 'axios';
+import { Loader } from '../Components/Loader/Loader';
 
 export const Search = () => {
   const ref = useRef(null);
@@ -12,16 +13,20 @@ export const Search = () => {
   const [responseData, setResponseData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Function to handle the search button click
+ 
   const handleSearch = () => {
-    // Make a GET request to localhost:8000 with the search term
+  
     setLoading(true);
 
     axios.get(`http://localhost:8000/rating/${searchTerm}`)
       .then(response => {
         // Update the state to show the card and store the response data
-        setShowCard(true);
         setResponseData(response.data);
+        
+          
+        
+        
+        
       })
       .catch(error => {
         console.error('Error:', error);
@@ -53,11 +58,11 @@ export const Search = () => {
             </div>
             {loading && (
               <div className={styles.loadingIcon}>
-                {/* Display a loading icon while waiting for data */}
-                Loading...
+                
+                <Loader text={"..... Pleasewait"}  />
               </div>
             )}
-            {showCard && (
+            {responseData && (
             <div className={styles.card}>
               <p className={styles.p1}>Restaurant: {responseData.name}</p>
               <p className={styles.p1}>Rating: {responseData.systemRating.toFixed(2)}</p>
@@ -65,8 +70,10 @@ export const Search = () => {
               <div className={styles.systemComments}>
                 <h4 className={styles.h4}>System Comments:</h4>
                 {responseData.systemComments.map((comment, index) => (
-                  <div key={index} className={styles.comment}>
-                    <p>{comment}</p>
+                  
+                  <div key={index} >
+                  <span> <p style={{ color: comment.rating >= 3.0 ? 'green' : 'red' }}>{comment.content}</p>
+      <p style={{ color: comment.rating >= 3.0 ? 'green' : 'red' }}>{comment.rating.toFixed(2)}</p></span>
                     {index !== responseData.systemComments.length - 1 && <hr className={styles.commentLine} />}
                   </div>
               ))}

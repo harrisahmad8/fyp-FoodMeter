@@ -1,9 +1,8 @@
 import instaloader
 import time
 
-def getKeywordCaptions():
+def getKeywordCaptions(keyword):
     # Take keyword input from the user
-    keyword = input("Enter the keyword to search for: ")
 
     loader = instaloader.Instaloader()
 
@@ -31,7 +30,7 @@ def getKeywordCaptions():
             # Check if the keyword is in the post caption
             if keyword.lower() in post.caption.lower():
                 caption = post.caption if post.caption else ''
-                captions_string += f"Username: {username}\nCaption: {caption}\n\n"
+                captions_string +=caption
 
             # Add a 2-second delay between posts
             time.sleep(2)
@@ -41,7 +40,3 @@ def getKeywordCaptions():
     loader.close()
 
     return captions_string
-
-# Call the function and print the result
-result = getKeywordCaptions()
-print(result)

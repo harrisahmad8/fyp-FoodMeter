@@ -4,7 +4,7 @@ class RestaurantDTO{
         this.name = restaurant.name;
         this.logoPath = restaurant.logoPath;
         this.foodType = restaurant.foodType;
-        this.featured = restaurant.featured ; 
+        this.featured = restaurant.featured || null  ; 
         this.systemComments = restaurant.systemComments.map(comment => ({
             content: comment.content,
             rating: comment.rating

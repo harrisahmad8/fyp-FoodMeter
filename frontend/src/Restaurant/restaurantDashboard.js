@@ -52,6 +52,7 @@ export const RestaurantDashboard = () => {
   return (
     <div className={styles.main}>
       <Navbar />
+      (restaurantInfo&&
       <div className={styles.container}>
         <h1 className={styles.restaurantName}>Dashboard for: {restaurantInfo.name}</h1>
         
@@ -63,7 +64,7 @@ export const RestaurantDashboard = () => {
             </div>
             <div className={styles.ratingBox}>
               <h2>User Rating</h2>
-              <p>{restaurantInfo.userRating}</p>
+              <p></p>
             </div>
             <button className={styles.featureButton} onClick={MakePayment}>Feature {restaurantInfo.name}</button>
           </div>
@@ -74,15 +75,11 @@ export const RestaurantDashboard = () => {
             <h2>System Comments</h2>
             {restaurantInfo.systemComments.map((comment, index) => (
               <div key={index}>
-                <p>{comment}</p>
+                <p>{comment.content}</p>
+                <p>{comment.rating}</p>
                 {index !== restaurantInfo.systemComments.length - 1 && <hr className={styles.commentLine} />}
               </div>
             ))}
-          </div>
-
-          <div className={styles.commentBox}>
-            <h2>User Comments</h2>
-            <p>{restaurantInfo.userComments}</p>
           </div>
         </div>
       </div>

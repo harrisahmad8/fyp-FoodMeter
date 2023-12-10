@@ -79,7 +79,7 @@ const authController = {
 
     //send tokens in cookie
     res.cookie("accessToken", accessToken, {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
+      maxAge: 1000*1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
       sameSite: "none", // Set the sameSite option
     secure: true, 
@@ -111,8 +111,7 @@ const authController = {
 
     const { email, password } = req.body;
 
-    // const username = req.body.username
-    // const password = req.body.password
+   
 
     let user;
 

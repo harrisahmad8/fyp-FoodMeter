@@ -48,36 +48,24 @@ def get_reviews(keyword):
         time.sleep(3)
         reviews=[]
 
-        max_scroll_attempts = 5  # You can adjust the number of attempts
-        scroll_attempt = 1
-        scroll_distance=200
+        max_scroll_attempts = 8  # You can adjust the number of attempts
+        scroll_attempt = 0
+        scroll_distance=400
 
         while scroll_attempt <= max_scroll_attempts:
                     scroll_attempt += 1
-        # Scroll down to load more reviews
                     scroll_incrementally(driver, scroll_distance)
                     time.sleep(2)
-                    #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    #time.sleep(3)
+                    
                     print("After scroll attempt", scroll_attempt)
 
-        # Find and scrape all reviews
                     print("Before getting reviews")
-                    review_elements = driver.find_elements(By.XPATH, '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[2]/div[9]/div[1]/div/div/div[4]/div[2]')
+                    review_elements = driver.find_elements(By.XPATH, '/html/body/div[1]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[2]/div[9]')
                     reviewsExtracted = [element.text for element in review_elements]
                     print("After getting reviews")
 
 
                     reviews.extend(reviewsExtracted)
-
-                    #if reviews:
-            # If reviews are found, break out of the loop
-                     #break
-                #except StaleElementReferenceException:
-        # Handle StaleElementReferenceException, which might occur if the DOM is changing
-                    #print("StaleElementReferenceException. Retrying...")
-    
-    
         
         return reviews
 

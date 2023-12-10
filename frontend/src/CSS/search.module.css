@@ -108,6 +108,13 @@ input:focus {
   font-size: 25px;
   margin-top: 10px;
 }
+.comment{
+  color:green;
+
+}
+.negativeComment{
+  color:red
+}
 
 .commentLine {
   border: 1px solid #000; /* You can adjust the color as needed */

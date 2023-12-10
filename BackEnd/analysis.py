@@ -3,7 +3,9 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional,List
+import instaloader
+import time
 
 
 from selenium import webdriver
@@ -20,7 +22,7 @@ from googletrans import Translator
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
-#from insta import getKeywordCaptions
+from insta import getKeywordCaptions
 
 
 app = FastAPI()
@@ -875,6 +877,49 @@ negation_words = [
     "Nevertheless"
 ]
 
+#insta scraper
+def getKeywordCaptions(keyword, num_posts_per_user=6):
+    print("insta loader is running")
+
+    loader = instaloader.Instaloader()
+
+    # Load session from file
+    loader.load_session_from_file("halima.abbas6")
+
+    # List of Instagram usernames
+    usernames = ['food_exploration_with_umair', 'islamabadfoodgram', 'thefoodloverfromcapital']
+
+    captions_list = []  
+
+    for username in usernames:
+        
+        profile = instaloader.Profile.from_username(loader.context, username)
+
+        count = 0
+        for post in profile.get_posts():
+            # Limit the search to the specified number of posts per user
+            if count >= num_posts_per_user:
+                break
+
+            # Increment the count for every post
+            count += 1
+
+            # Check if the keyword is in the post caption
+            if keyword.lower() in post.caption.lower():
+                caption = post.caption if post.caption else ''
+                captions_list.append(caption)
+
+            # Add a 2-second delay between posts
+            time.sleep(2)
+
+    # Close the session
+    loader.context.log("Closed session")
+    loader.close()
+
+    # Join the individual captions into a single string
+    
+
+    return captions_list
 
 
 def adjust_for_negation(sentiments, text):
@@ -887,59 +932,38 @@ def adjust_for_negation(sentiments, text):
                     sentiments['compound'] *= -1  
                     break
                 j += 1
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')
+sia = SentimentIntensityAnalyzer()
+
 def analyze_review(review):
     sentiment_scores = sia.polarity_scores(review)
-    adjust_for_negation(sentiment_scores, review)
-    return {
-        'content': review,
-        'rating': sentiment_scores['compound']
-    }
-
-def restaurant_review_rating(reviews):
-    total_score = 0.0
-
-    analyzed_reviews = []
-
-    for review in reviews:
-        # Analyze the sentiment of the review
-        sentiment_scores = sia.polarity_scores(review)
-
-        # Adjust for negation if needed
-        adjust_for_negation(sentiment_scores, review)
-
-        # Map the sentiment score to the 1-5 rating range
-        
-        min_score = -1.0
-        max_score = 1.0
-        review_rating = 1 + 4 * (sentiment_scores - min_score) / (max_score - min_score)
-        final_review_rating= final_rating = max(1, min(5, review_rating))
-
-        # Append the analyzed review to the list
-        analyzed_reviews.append({'content': review, 'rating': sentiment_scores['compound']})
-
-    # Calculate the average score
-    average_score = total_score / len(reviews)
-
-    # Map the average score to the 1-5 rating range
+    adjust_for_negation(sentiment_scores,review)
     min_score = -1.0
     max_score = 1.0
-    scaled_rating = 1 + 4 * (average_score - min_score) / (max_score - min_score)
+    scaled_rating = 1 + 4 * (sentiment_scores['compound'] - min_score) / (max_score - min_score)
+    review_rating = max(1, min(5, scaled_rating))
+    return {'content': review, 'rating': review_rating}
 
-    # Ensure the rating is within the 1-5 range
-    final_rating = max(1, min(5, scaled_rating))
+def restaurant_review_rating(reviews):
+    analyzed_reviews = [analyze_review(review) for review in reviews]
 
-    return final_rating, analyzed_reviews
+    total_score = sum(review['rating'] for review in analyzed_reviews)
+    average_score = total_score / len(analyzed_reviews)
+    return average_score, analyzed_reviews
 
 class Comment(BaseModel):
     content: str
-    rating: int
+    rating: float
 
 class RestaurantResponse(BaseModel):
     name: str
-    foodType: list
-    systemComments: list[Comment]
-    systemRating:int
-    logopath:Optional[str] = None 
+    foodType: List[str]
+    systemComments: List[Comment]
+    systemRating:Optional[float]=None
+    logoPath:Optional[str]=None
 
 #Fake reviews detection
 def fakeReviewDetection(text):
@@ -970,6 +994,8 @@ def predict_text_label(text, model, tokenizer, max_len):
 
 
 @app.get("/rating/{keyword}")
+
+
 
 
 def get_reviews_and_info(keyword:str, num_reviews=10):
@@ -1013,7 +1039,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
         search_input.send_keys(Keys.RETURN)
 
         # Wait for the first result to be present
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.CLASS_NAME, "result-title"))
         )
         first_result = driver.find_element(By.CLASS_NAME, "result-title")
@@ -1032,7 +1058,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                 driver.get(full_url)
 
                 # Wait for the individual restaurant page to load
-                WebDriverWait(driver, 10).until(
+                WebDriverWait(driver, 20).until(
                     EC.presence_of_element_located((By.CLASS_NAME, "review-container"))
                 )
                 restaurantXpath='//*[@id="taplc_resp_rr_photo_mosaic_0"]/div/div[1]/div[1]/div[2]/div[2]/div[1]/div/img'
@@ -1045,20 +1071,23 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
 
                 # Check if the restaurant name already exists in the database
                 restaurant_data = collection.find_one({'name': restaurant_name})
+                print("mongodb:",restaurant_data)
+                
 
                 if restaurant_data:
-                       restaurant_data = {
+                       data = {
+                        
                         'name': restaurant_name,
-                        'foodType': cuisine_list,
-                        'systemComments': [review.text for review in reviews],
-                        'systemRating':rating,
+                        'foodType': restaurant_data["foodType"],
+                        'systemComments':restaurant_data["systemComments"],
+                        'systemRating':restaurant_data["systemRating"],
                         'logoPath':restaurant_image
                        }     
                     
                        print(f"Restaurant '{restaurant_name}' already exists in the database. Skipping.")
     
-                       print("Restaurant Data:", restaurant_data)
-                       response_data = RestaurantResponse(**restaurant_data)
+                       print("Restaurant Data:", data)
+                       response_data = RestaurantResponse(**data)
                        return (response_data)
                 else:
 
@@ -1491,9 +1520,13 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                              print("This review is fake: ",review_text)
                              reviews.remove(review)
                                
+                    instaReviews=getKeywordCaptions(keyword)
+                    
                     
                     
                     translated_reviews = translate_reviews([review.text for review in reviews], custom_dict)
+
+                    translated_reviews=translated_reviews+list(instaReviews)
 
 
                     restaurant_data = {
@@ -1524,6 +1557,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                     collection.update_one({"name":restaurant_name},{ "$set": {"systemRating":rating,"systemComments":analyzed_reviews}})
 
                     restaurant_data = {
+                        
                         'name': restaurant_name,
                         'foodType': cuisine_list,
                         'systemComments': analyzed_reviews,
@@ -1546,6 +1580,5 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
     finally:
         driver.quit()
         client.close()  # Close MongoDB connection
-    response_data = RestaurantResponse(**restaurant_data)
-    return (response_data) 
+    
     
