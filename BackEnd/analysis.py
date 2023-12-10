@@ -3,6 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import Optional
 
 
 from selenium import webdriver
@@ -928,10 +929,14 @@ def restaurant_review_rating(reviews):
 
     return final_rating, analyzed_reviews
 
+class Comment(BaseModel):
+    content: str
+    rating: float
+
 class RestaurantResponse(BaseModel):
     name: str
     foodType: list
-    systemComments: list
+    systemComments: list[Comment]
     systemRating:float
     logopath:Optional[str] = None 
 
@@ -1229,7 +1234,8 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                         
                     }
                     # Store data in MongoDB
-                    
+                    response_data = RestaurantResponse(**restaurant_data)
+                    return (response_data) 
 
             else:
                 print("URL not found in the onclick attribute.")
@@ -1243,5 +1249,4 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
         driver.quit()
         client.close()  # Close MongoDB connection
 
-    response_data = RestaurantResponse(**restaurant_data)
-    return (response_data)
+    
