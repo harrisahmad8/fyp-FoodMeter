@@ -10,21 +10,22 @@ def scroll_incrementally(driver, scroll_distance):
     driver.execute_script(f"window.scrollBy(0, {scroll_distance});")
 def get_reviews(keyword):
     try:
-    # Set up the web driver (assuming you have ChromeDriver)
+    
         driver = webdriver.Chrome()
-        # Maximize the browser window for a full-screen view
+        
         driver.set_window_size(800, 600)
-
-        # Open Google Maps
+       
+        
         driver.get("https://www.google.com/maps")
 
-        # Find the search box and enter the keyword
+       
         search_box = driver.find_element(By.NAME, "q")
         search_box.send_keys(keyword)
         search_box.send_keys(Keys.RETURN)
 
-        # Wait for the search results to load
+        
         time.sleep(5)
+        
 
         # Click on the first result in the list
         first_result_xpath = '/html/body/div[1]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]/div[3]/div/a'
@@ -48,7 +49,7 @@ def get_reviews(keyword):
         time.sleep(3)
         reviews=[]
 
-        max_scroll_attempts = 8  # You can adjust the number of attempts
+        max_scroll_attempts = 15  # You can adjust the number of attempts
         scroll_attempt = 0
         scroll_distance=400
 
@@ -80,7 +81,7 @@ def get_reviews(keyword):
         driver.quit()
 
 if __name__ == "__main__":
-    # Example usage: provide a keyword to search for
+    
     keyword_to_search = input("Enter a restaurant name or keyword: ")
     results = get_reviews(keyword_to_search)
 

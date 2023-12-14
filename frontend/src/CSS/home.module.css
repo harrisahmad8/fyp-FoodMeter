@@ -1,6 +1,6 @@
 /* Default styles for large screens */
 html, body {
-  height: 60%;
+  height: 100%;
   margin: 0;
   padding: 0;
   background-color: #ffffff;
@@ -149,7 +149,7 @@ html, body {
   color: black;
   font-weight: bold;
   font-style: italic;
-  font-size: 60px;
+  font-size: 40px;
 }
 
 /* Card styles for large screens */

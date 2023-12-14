@@ -19,6 +19,8 @@ import { Loader } from "./Components/Loader/Loader";
 import {Dashboard} from "./Admin/dashboard"
 import { Admin } from "./Admin/Admin";
 import { RestaurantDashboard } from "./Restaurant/restaurantDashboard";
+import { Success } from "./Components/success";
+import { Cancel } from "./Components/cancel";
 
 
 
@@ -49,6 +51,8 @@ function App() {
           <Route path="/ReviewPortal" exact element={<Protected isAuth={isAuth}><ReviewPortal/></Protected>}/>
           <Route path="/admin/*" exact element={<Protected isAuth={isAuth}><Admin/></Protected>}/>
           <Route path="/restaurantDashboard" exact element={<Protected isAuth={isAuth}><RestaurantDashboard/></Protected>}/>
+          <Route path="/success" exact element={<Success/>}/>
+          <Route path="/cancel" exact element={<Protected isAuth={isAuth}><Cancel/></Protected>}/>
           <Route path="*" element={<Error/>}/>
       </Routes>
         

@@ -88,9 +88,55 @@ const restaurantController = {
 
     return res.status(200).json({ restaurant: restaurantDto });
   },
+  async makeFeatured(req, res, next) {
+    const { name } = req.params;
+    console.log(name);
+  
+    try {
+      // Update the document directly without using a separate variable
+      await Restaurant.updateOne({ name: name }, { $set: { featured: true } });
+  
+      // Check if the update was successful
+      const updatedRestaurant = await Restaurant.findOne({ name: name });
+  
+      if (updatedRestaurant && updatedRestaurant.featured) {
+        return res.status(200).json({ message: "Restaurant featured" });
+      } else {
+        return res.status(404).json({ message: "Restaurant not found or not updated" });
+      }
+    } catch (error) {
+      return next(error);
+    }
+  },
+  
+  async topRated(req,res,next){
+    let restaurant;
+    try {
+       restaurant=await Restaurant
+       .find({})
+       .sort({ systemRating: -1 }) // Sort by rating in descending order
+       .limit(6);
+   
+       const restaurantDto = [];
+
+      for (let i = 0; i < restaurant.length; i++) {
+        const dto = new RestaurantDto(restaurant[i]);
+        restaurantDto.push(dto);
+      }
+    
+    console.log("top rated")
+
+    return res.status(200).json({ restaurant: restaurantDto });
+
+    } catch (error) {
+      return next(error)
+      
+    }
 
 
-};
+
+},
+}
 
 
 

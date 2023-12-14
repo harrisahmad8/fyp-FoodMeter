@@ -112,6 +112,7 @@ export const featuredRestaurant= async()=>{
 }
 
 export const restaurantName=async(name) =>{
+  console.log("****",name)
   let response;
   try {
     response= await api.get(`${baseURL}/restaurants/${name}`,
@@ -124,6 +125,7 @@ export const restaurantName=async(name) =>{
     return (error)
     
   }
+  console.log('response: ',response)
   return response
 }
 
@@ -208,6 +210,80 @@ export const getUser=async(id)=>{
   return response;
 };
 
+export const getStripeApiKey = async () => {
+  try {
+      const response = await axios.get(`${baseURL}/stripe_api_key`)
+      // console.log("Response :", response.data)
+      return response;
+  }
+  catch (error) {
+      throw error;
+  }
+};
 
+// process payment
+export const processPayment = async () => {
+  try {
+      const response = await axios.post(`${baseURL}/process_payment`);
+      console.log("Response :", response.data)
+      return response;
+  }
+  catch (error) {
+      throw error;
+  }
+};
+
+export const makeFeatured=async(name)=>{
+  console.log(name)
+  let response;
+
+  try {
+    response = await api.put(`${baseURL}/makeFeatured/${name}`);
+  } catch (error) {
+    return error;
+  }
+  return response;
+};
+
+export const topRated=async()=>{
+  let response;
+
+  try {
+    response = await api.get(`${baseURL}/topRated`);
+  } catch (error) {
+    return error;
+  }
+  return response;
+};
+
+api.interceptors.response.use(
+  (config) => config,
+  async (error) => {
+    const originalReq = error.config;
+
+    // extract the value of message from json response if it exists
+    const errorMessage = error.response && error.response.data && error.response.data.message;
+
+    if (
+      errorMessage === 'Unauthorized' &&
+			(error.response.status === 401 || error.response.status === 500) &&
+			originalReq &&
+			!originalReq._isRetry
+    ) {
+      originalReq._isRetry = true;
+
+      try {
+        await axios.get(`${process.env.REACT_APP_INTERNAL_API_PATH}/refresh`, {
+          withCredentials: true,
+        });
+
+        return api.request(originalReq);
+      } catch (error) {
+        return error;
+      }
+    }
+    throw error;
+  }
+);
 
 

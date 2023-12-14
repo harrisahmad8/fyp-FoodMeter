@@ -8,7 +8,7 @@ const CommentSchema = new Schema({
 const restaurantSchema=new Schema({ 
   name: { type: String, required: true },
   logoPath: { type: String },
-  foodType: { type: String },
+  foodType: { type: Array },
   featured: { type: Boolean },
   systemComments: [CommentSchema],
   systemRating: { type: Number }

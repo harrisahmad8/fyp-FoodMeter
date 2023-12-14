@@ -23,16 +23,14 @@ export const Search = () => {
         // Update the state to show the card and store the response data
         setResponseData(response.data);
         
-          
-        
-        
+      
         
       })
       .catch(error => {
         console.error('Error:', error);
       });
       setLoading(false)
-  };
+    }
 
   return (
     <>
@@ -85,6 +83,6 @@ export const Search = () => {
         </div>
         
       </div>
-    </>
-  );
+    </>
+  );
 };

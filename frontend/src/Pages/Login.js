@@ -43,6 +43,7 @@ export const Login=()=> {
       if (user.role==="admin") {
         navigate("/admin/")
       } else if (user.role==="restaurant owner") {
+        localStorage.setItem('user', JSON.stringify(user));
         navigate("/restaurantDashboard")
         
       } else {

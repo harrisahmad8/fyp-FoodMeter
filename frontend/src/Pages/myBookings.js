@@ -84,6 +84,7 @@ export const Mybookings = () => {
                 className="input-field"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
             <div className="form-row">
@@ -94,6 +95,7 @@ export const Mybookings = () => {
                 className="input-field"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className="form-row">
@@ -104,6 +106,7 @@ export const Mybookings = () => {
                 className="input-field"
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
+                required
               />
             </div>
             <div className="form-row">
@@ -114,6 +117,8 @@ export const Mybookings = () => {
                 className="input-field"
                 value={guest}
                 onChange={(e) => setGuest(e.target.value)}
+                min={1}
+                required
               />
             </div>
             <div className="form-row">

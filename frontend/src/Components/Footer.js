@@ -10,22 +10,35 @@ import {
  
 export const Footer = () => {
     return (
-        <Box>
+        <Box className="w-full">
             <h1
                 style={{
                     color: "green",
                     textAlign: "center",
-                    marginTop: "10px",
+                    // marginTop: "10px",
+                    marginBottom: "15px"
                 }}
             >
-                A Computer Science Portal for Geeks!
+                A Resturant Review Portal For Food Lovers!
             </h1>
             <FooterContainer>
                 <Row>
+                <Column>
+                        <Heading>About Us</Heading>
+                        <FooterLink href="/">
+                            Home
+                        </FooterLink>
+                        <FooterLink href="NewBooking">
+                            Bookings
+                        </FooterLink>
+                        <FooterLink href="favorites">
+                            Favorites
+                        </FooterLink>
+                    </Column>
                     <Column>
                         <Heading>About Us</Heading>
-                        <FooterLink href="#">
-                            Aim
+                        <FooterLink href="/profile">
+                            Profile
                         </FooterLink>
                         <FooterLink href="#">
                             Vision
@@ -34,34 +47,18 @@ export const Footer = () => {
                             Testimonials
                         </FooterLink>
                     </Column>
-                    <Column>
-                        <Heading>Services</Heading>
-                        <FooterLink href="#">
-                            Writing
-                        </FooterLink>
-                        <FooterLink href="#">
-                            Internships
-                        </FooterLink>
-                        <FooterLink href="#">
-                            Coding
-                        </FooterLink>
-                        <FooterLink href="#">
-                            Teaching
-                        </FooterLink>
-                    </Column>
+                    
                     <Column>
                         <Heading>Contact Us</Heading>
                         <FooterLink href="#">
-                            Uttar Pradesh
+                            +92-304-5678000
                         </FooterLink>
                         <FooterLink href="#">
-                            Ahemdabad
+                        +92-304-5182980
                         </FooterLink>
+                        
                         <FooterLink href="#">
-                            Indore
-                        </FooterLink>
-                        <FooterLink href="#">
-                            Mumbai
+                            Foodmeter@gmail.com
                         </FooterLink>
                     </Column>
                     <Column>
@@ -112,6 +109,9 @@ export const Footer = () => {
                         </FooterLink>
                     </Column>
                 </Row>
+                <div className="bg-white rounded-sm mt-4" >
+                <p class="text-sm">&copy; 2023 Food Meter. All rights reserved. | Designed by Hamid & Haris</p>
+                </div>
             </FooterContainer>
         </Box>
     );

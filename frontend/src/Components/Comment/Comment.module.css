@@ -12,18 +12,29 @@
   }
   
   .author {
-    color: #c4c5c5;
+    display: flex; /* Use flexbox */
+    justify-content: flex-start; /* Align items to the start on the main axis */
+    align-items: center; /* Align items to the center on the cross axis (vertically) */
+    
+    color:black;
     font-weight: bold;
     margin-right: 10px;
+  
   }
   
   .date {
     font-size: 12px;
-    color: #c4c5c5;
+    display: flex; /* Use flexbox */
+    justify-content: flex-start; /* Align items to the start on the main axis */
+    align-items: center; /* Align items to the center on the cross axis (vertically) */
+    
+    color:gray;
     font-weight: bold;
+    margin-right: 10px;
   }
   
   .commentText {
-    font-size: 18px;
+    font-size: 16px;
     padding: 5px 0;
+    text-align: left;
   }

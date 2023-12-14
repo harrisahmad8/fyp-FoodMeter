@@ -11,12 +11,13 @@ const initialState = {
     initialState,
     reducers: {
       setUser: (state, action) => {
-        const { _id, email,name, auth ,role} = action.payload;
+        const { _id, email,name, auth ,role,number} = action.payload;
   
         state._id = _id;
         state.email = email;
         state.name = name;
         state.role=role;
+        state.number=number;
         state.auth = auth;
       },
       resetUser: (state) => {

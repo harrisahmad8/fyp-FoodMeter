@@ -17,6 +17,7 @@ from selenium.webdriver.chrome.service import Service
 from googletrans import Translator
 import re
 import pymongo
+from bson import ObjectId
 import numpy as np
 from googletrans import Translator
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -959,6 +960,7 @@ class Comment(BaseModel):
     rating: float
 
 class RestaurantResponse(BaseModel):
+    _id:ObjectId
     name: str
     foodType: List[str]
     systemComments: List[Comment]
@@ -1016,6 +1018,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--headless')
 
     chrome_service = Service(chromedriver_path)
 
@@ -1076,7 +1079,8 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
 
                 if restaurant_data:
                        data = {
-                        
+                           
+                        '_id':restaurant_data["_id"],
                         'name': restaurant_name,
                         'foodType': restaurant_data["foodType"],
                         'systemComments':restaurant_data["systemComments"],
@@ -1530,6 +1534,7 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
 
 
                     restaurant_data = {
+                        '_id':restaurant_data["_id"],
                         'name': restaurant_name,
                         'foodType': cuisine_list,
                         'systemComments': translated_reviews,
@@ -1557,7 +1562,8 @@ def get_reviews_and_info(keyword:str, num_reviews=10):
                     collection.update_one({"name":restaurant_name},{ "$set": {"systemRating":rating,"systemComments":analyzed_reviews}})
 
                     restaurant_data = {
-                        
+
+                        '_id':restaurant_data["_id"],
                         'name': restaurant_name,
                         'foodType': cuisine_list,
                         'systemComments': analyzed_reviews,

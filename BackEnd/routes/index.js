@@ -61,37 +61,8 @@ router.get('/comment/:id',auth,commentController.getByRestaurantId)
 router.get('/restaurants/:name',auth,restaurantController.getByName)
 router.put('/updateProfile/:id',auth,userController.updateProfile)
 router.get('/user/:id',auth,userController.getUserId)
-router.post('/stripe', async (req, res) => {
-  try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Feature Restaurant',
-            },
-            unit_amount: 1000, // Amount in cents (10 dollars)
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/cancel',
-    });
-
-    res.json({ id: session.id });
-  } catch (error) {
-    console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-
-
-
-
+router.post('/makepayment',stripeController.makepayment)
+router.get('/topRated',auth,restaurantController.topRated)
+router.put('/makeFeatured/:name',restaurantController.makeFeatured)
 
 module.exports = router;

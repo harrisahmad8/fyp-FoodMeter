@@ -10,6 +10,7 @@ const commentController = {
       content: Joi.string().required(),
       user: Joi.string().regex(mongodbIdPattern).required(),
       restaurant: Joi.string().regex(mongodbIdPattern).required(),
+      rating:Joi.number(),
     });
 
     const { error } = createCommentSchema.validate(req.body);
@@ -17,13 +18,14 @@ const commentController = {
       console.log(error)
       return next(error);
     }
-    const { content, user, restaurant } = req.body;
+    const { content, user, restaurant,rating } = req.body;
 
     try {
       const newComment = new Comment({
         content,
         user,
         restaurant,
+        rating,
       });
 
       await newComment.save();
