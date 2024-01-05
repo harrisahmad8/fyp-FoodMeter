@@ -10,7 +10,7 @@ export const RestaurantCard = ({data}) => {
   if (!Array.isArray(data)) {
     console.error('Data is not an array:', data);
     console.log()
-    // or handle the error in a way that makes sense for your application
+    
   }
   const [favorites, setFavorites] = useState([]);
 
@@ -78,11 +78,7 @@ export const RestaurantCard = ({data}) => {
                         ? removeFromFavorites()
                         : addToFavorites()
                     }
-                    style={{
-                      color: favorites.some((fav) => fav._id === data._id)
-                        ? "red"  // Color when the restaurant is in favorites
-                        : "black"  // Color when the restaurant is not in favorites
-                    }}
+                    
                   />
 
           
